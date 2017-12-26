@@ -4,22 +4,35 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "es6-promise": "^4.2.2",
+    "glamor": "^2.20.40",
+    "material-ui": "^0.20.0",
     "next": "^4.1.4",
+    "next-redux-saga": "^1.0.1",
+    "next-redux-wrapper": "^1.3.5",
+    "prop-types": "^15.6.0",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
+    "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
-    "redux": "^3.7.2"
+    "react-tap-event-plugin": "^3.0.2",
+    "redux": "^3.7.2",
+    "redux-devtools-extension": "^2.13.2",
+    "redux-saga": "^0.16.0",
+    "styled-components": "^2.4.0"
   },
   "devDependencies": {
     "eslint": "4.9.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "2.7.0",
     "eslint-plugin-jsx-a11y": "6.0.2",
-    "eslint-plugin-react": "7.4.0"
+    "eslint-plugin-react": "7.4.0",
+    "jest": "^22.0.3"
   },
   "scripts": {
     "build": "next build",
     "dev": "next",
-    "start": "next start"
+    "start": "next start",
+    "test": "jest"
   }
 }

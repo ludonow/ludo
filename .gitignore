@@ -1,2 +1,8 @@
+.sass-cache/
 node_modules/
-.next/
+stats.json
+build/
+desktop.ini
+front.sublime-project
+front.sublime-workspace
+.DS_Store
