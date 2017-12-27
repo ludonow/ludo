@@ -1,10 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import MenuIcon from 'material-ui/svg-icons/navigation/menu';
-import PersonIcon from 'material-ui/svg-icons/social/person';
-import { white } from 'material-ui/styles/colors';
-
 const LudoLogoSrc = '/static/LudoLogo.png';
 
 const HeaderWrapper = styled.div`
@@ -43,13 +39,13 @@ const Logo = () => (
 
 const Menu = () => (
   <IconWrapper>
-    <MenuIcon color={white} />
+    MenuIcon
   </IconWrapper>
 );
 
 const Profile = () => (
   <ProfileWrapper>
-    <PersonIcon color={white} />
+    PersonIcon
   </ProfileWrapper>
 );
 
