@@ -1,5 +1,8 @@
 {
-  "extends": "airbnb",
+  "extends": [
+    "airbnb",
+    "plugin:jest/recommended"
+  ],
   "rules": {
     "comma-dangle": "off",
     "jsx-a11y/anchor-is-valid": "warn",
