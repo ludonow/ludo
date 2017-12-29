@@ -1,4 +1,4 @@
 *.css text eol=lf
 *.html text eol=lf
 *.js text eol=lf
-*.scss text eol=
+*.scss text eol=lf
