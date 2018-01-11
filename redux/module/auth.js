@@ -1,19 +1,29 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 import md5 from 'blueimp-md5';
-import axios from '../axios-config';
+import es6promise from 'es6-promise';
+
+import axios from '../../axios-config';
+
+es6promise.polyfill();
 
 // Actions
-export const LOGIN = 'auth/LOGIN';
-export const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
-export const LOGIN_FAIL = 'auth/LOGIN_FAIL';
-export const LOGOUT = 'auth/LOGOUT';
-export const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS';
-export const LOGOUT_FAIL = 'auth/LOGOUT_FAIL';
+export const LOGIN_REQUEST = 'LOGIN_REQUEST';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAIL = 'LOGIN_FAIL';
+export const LOGOUT = 'LOGOUT';
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export const LOGOUT_FAIL = 'LOGOUT_FAIL';
+
+// Action Creators
+export const login = loginData => ({
+  type: LOGIN_REQUEST,
+  loginData
+});
 
 // Reducer
-export default function reducer(state = {}, action = {}) {
+export const reducer = (state = {}, action = {}) => {
   switch (action.type) {
-    case LOGIN:
+    case LOGIN_REQUEST:
       return {
         ...state,
         loading: true
@@ -51,9 +61,9 @@ export default function reducer(state = {}, action = {}) {
     default:
       return state;
   }
-}
+};
 
-// Action Creators
+// Saga
 export const fetchUserInfo = ({ apiParam, loginData }) => (
   axios.post(apiParam, loginData)
 );
@@ -62,7 +72,7 @@ export const logOutApi = ({ apiParam }) => (
   axios.post(apiParam)
 );
 
-export function* login(loginData) {
+export function* loginSaga(loginData) {
   try {
     const requestData = {
       apiParam: '/login',
@@ -91,8 +101,8 @@ export function* logout() {
 }
 
 export function* rootSaga() {
-  yield [
-    yield takeLatest(LOGIN, login),
+  yield all([
+    yield takeLatest(LOGIN_REQUEST, login),
     yield takeLatest(LOGOUT, logout)
-  ];
+  ]);
 }

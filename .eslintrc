@@ -5,7 +5,9 @@
   ],
   "rules": {
     "comma-dangle": "off",
+    "function-paren-newline": "off",
     "jsx-a11y/anchor-is-valid": "warn",
+    "no-confusing-arrow": "off",
     "react/jsx-filename-extension": "off",
     "react/no-array-index-key": "off"
   }

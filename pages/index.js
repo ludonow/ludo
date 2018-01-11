@@ -1,24 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
+import withRedux from 'next-redux-wrapper';
 
-import Header from '../components/Header/Header';
-import NavBar from '../components/NavBar';
-import Tabs from '../components/Tabs';
+import configureStore from '../redux/createStore';
+import withApp from '../containers/withApp';
 
-const tabTitles = ['我的模板', '模板引用'];
+import Main from '../components/Main';
 
-const MainWrapper = styled.div`
-  background-color: #ffc645;
-`;
-
-const Index = () => (
-  <div>
-    <Header />
-    <MainWrapper>
-      <Tabs tabTitles={tabTitles} />
-      <NavBar />
-    </MainWrapper>
-  </div>
-);
-
-export default Index;
+export default withRedux(configureStore)(withApp(Main));
