@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const LudoLogoSrc = '/static/LudoLogo.png';
@@ -60,11 +59,6 @@ const Avatar = ({
   </AvatarWrapper>
 );
 
-Avatar.propTypes = {
-  handleAvatarPopMenuToggle: PropTypes.func.isRequired,
-  isShowingAvatarPopUpMenu: PropTypes.func.isRequired
-};
-
 const Header = ({
   handleAvatarPopMenuToggle,
   isShowingAvatarPopUpMenu
@@ -78,10 +72,5 @@ const Header = ({
     />
   </HeaderWrapper>
 );
-
-Header.propTypes = {
-  handleAvatarPopMenuToggle: PropTypes.func.isRequired,
-  isShowingAvatarPopUpMenu: PropTypes.func.isRequired
-};
 
 export default Header;

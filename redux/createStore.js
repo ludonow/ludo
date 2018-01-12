@@ -1,6 +1,4 @@
-import nextReduxSaga from 'next-redux-saga';
-import withRedux from 'next-redux-wrapper';
-import { applyMiddleware, bindActionCreators, createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 
@@ -13,7 +11,8 @@ const exampleInitialState = {
     userId: null
   },
   header: {
-    isShowingAvatarPopUpMenu: false
+    isShowingAvatarPopUpMenu: false,
+    isShowingMenuPopUpMenu: false
   }
 };
 
@@ -36,17 +35,3 @@ const configureStore = (initialState = exampleInitialState) => {
 };
 
 export default configureStore;
-
-// const mapStoreToProps = state => (state);
-
-// const mapDispatchToProps = dispatch => ({
-//   login: bindActionCreators(auth.login, dispatch),
-//   toggleAvatarPopMenu: bindActionCreators(togglePopUpMenu.toggleAvatarPopUpMenu, dispatch)
-// });
-
-// withRedux(configureStore, mapStoreToProps, mapDispatchToProps)(nextReduxSaga(BaseComponent))
-// const withReduxSaga = BaseComponent => (
-//   withRedux(configureStore)(nextReduxSaga(BaseComponent))
-// );
-
-// export default withReduxSaga;
