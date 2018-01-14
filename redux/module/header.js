@@ -11,10 +11,7 @@ export const reducer = (state = {}, action = {}) => {
   switch (action.type) {
     case TOGGLE_AVATAR_POP_UP_MENU:
       return {
-        ...state,
-        header: {
-          isShowingAvatarPopUpMenu: !state.header.isShowingAvatarPopUpMenu
-        }
+        isShowingAvatarPopUpMenu: !state.isShowingAvatarPopUpMenu
       };
     default:
       return state;

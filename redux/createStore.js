@@ -1,11 +1,12 @@
-import { applyMiddleware, createStore } from 'redux';
+import { applyMiddleware, createStore, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
+import { all, takeLatest } from 'redux-saga/effects';
 
 import * as auth from './module/auth';
-import * as togglePopUpMenu from './module/togglePopUpMenu';
+import * as header from './module/header';
 
-const exampleInitialState = {
+export const exampleInitialState = {
   auth: {
     photoUrl: '',
     userId: null
@@ -16,12 +17,20 @@ const exampleInitialState = {
   }
 };
 
-const rootReducer = (state = exampleInitialState, action) => ({
-  auth: auth.reducer(state.auth, action),
-  togglePopUpMenu: togglePopUpMenu.reducer(state.header, action)
+const rootReducer = combineReducers({
+  auth: auth.reducer,
+  header: header.reducer
 });
 
 const sagaMiddleware = createSagaMiddleware();
+
+function* rootSaga() {
+  yield all([
+    yield takeLatest(auth.LOGIN_REQUEST, auth.login),
+    yield takeLatest(auth.LOGOUT, auth.logout),
+    yield takeLatest(header.TOGGLE_AVATAR_POP_UP_MENU, header.toggleAvatarPopUpMenu)
+  ]);
+}
 
 const configureStore = (initialState = exampleInitialState) => {
   const store = createStore(
@@ -30,7 +39,7 @@ const configureStore = (initialState = exampleInitialState) => {
     composeWithDevTools(applyMiddleware(sagaMiddleware))
   );
 
-  sagaMiddleware.run(auth.rootSaga);
+  sagaMiddleware.run(rootSaga);
   return store;
 };
 

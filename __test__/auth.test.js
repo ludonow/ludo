@@ -8,7 +8,7 @@ const loginSuccess = userInfo => ({ type: auth.LOGIN_SUCCESS, userInfo });
 const loginFail = error => ({ type: auth.LOGIN_FAIL, error });
 
 describe('login', () => {
-  const generator = auth.login(testLogInData);
+  const generator = auth.loginSaga(testLogInData);
 
   it('should get user data', () => {
     const actual = generator.next();

@@ -99,10 +99,3 @@ export function* logout() {
     yield put({ type: LOGOUT_FAIL, error });
   }
 }
-
-export function* rootSaga() {
-  yield all([
-    yield takeLatest(LOGIN_REQUEST, login),
-    yield takeLatest(LOGOUT, logout)
-  ]);
-}
