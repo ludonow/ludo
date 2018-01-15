@@ -1,3 +1,7 @@
+const initialState = {
+  isShowingAvatarPopUpMenu: false
+};
+
 // Actions
 export const TOGGLE_AVATAR_POP_UP_MENU = 'TOGGLE_AVATAR_POP_UP_MENU';
 
@@ -7,7 +11,7 @@ export const toggleAvatarPopUpMenu = () => ({
 });
 
 // Reducer
-export const reducer = (state = {}, action = {}) => {
+export const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case TOGGLE_AVATAR_POP_UP_MENU:
       return {

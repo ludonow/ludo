@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { IconWrapper } from '../baseStyle';
 
-const defaultAvatarSrc = '/static/default-avatar.png';
+export const defaultAvatarSrc = '/static/default-avatar.png';
 
 const DefaultAvatarIconWrapper = IconWrapper.extend`
   background-color: green;
