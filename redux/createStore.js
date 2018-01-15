@@ -13,7 +13,8 @@ export const exampleInitialState = {
   },
   header: {
     isShowingAvatarPopUpMenu: false,
-    isShowingMenuPopUpMenu: false
+    isShowingMenuPopUpMenu: false,
+    listItems: ['登入']
   }
 };
 

@@ -2,9 +2,9 @@ import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import { UnconnectedAvatar } from '../components/Header/Avatar/index';
-import { defaultAvatarSrc, UnconnectedAvatarIcon } from '../components/Header/Avatar/AvatarIcon';
-import { UnconnectedAvatarPopUpMenu, PopUpMenu } from '../components/Header/Avatar/AvatarPopUpMenu';
+import { UnconnectedAvatar } from '../components/Header/Avatar/Avatar';
+import { defaultAvatarSrc, UnconnectedIcon } from '../components/Header/Avatar/Icon';
+import { UnconnectedPopUpMenu, PopUpMenu } from '../components/Header/Avatar/PopUpMenu';
 
 import * as header from '../redux/module/header';
 
@@ -14,14 +14,14 @@ Enzyme.configure({ adapter: new Adapter() });
 describe('header avatar click event', () => {
   it('should trigger click event correctly', () => {
     const props = {
-      toggleAvatarPopUpMenu: jest.fn()
+      togglePopUpMenu: jest.fn()
     };
     const wrapper = shallow(<UnconnectedAvatar {...props} />);
-    expect(props.toggleAvatarPopUpMenu).not.toHaveBeenCalled();
+    expect(props.togglePopUpMenu).not.toHaveBeenCalled();
     wrapper.simulate('click');
-    expect(props.toggleAvatarPopUpMenu).toHaveBeenCalledTimes(1);
+    expect(props.togglePopUpMenu).toHaveBeenCalledTimes(1);
     wrapper.simulate('click');
-    expect(props.toggleAvatarPopUpMenu).toHaveBeenCalledTimes(2);
+    expect(props.togglePopUpMenu).toHaveBeenCalledTimes(2);
   });
 });
 
@@ -30,7 +30,7 @@ describe('header avatar icon view', () => {
     const props = {
       userPhotoUrl: null
     };
-    const wrapper = shallow(<UnconnectedAvatarIcon {...props} />);
+    const wrapper = shallow(<UnconnectedIcon {...props} />);
     expect(wrapper.dive().find('img').prop('alt')).toEqual('default-avatar');
     expect(wrapper.dive().find('img').prop('src')).toEqual(defaultAvatarSrc);
   });
@@ -39,7 +39,7 @@ describe('header avatar icon view', () => {
     const props = {
       userPhotoUrl: 'http://placehold.it/600/92c952'
     };
-    const wrapper = shallow(<UnconnectedAvatarIcon {...props} />);
+    const wrapper = shallow(<UnconnectedIcon {...props} />);
     expect(wrapper.dive().find('img').prop('alt')).toEqual('user');
   });
 });
@@ -49,15 +49,15 @@ describe('header avatar pop up menu view', () => {
     const props = {
       isShowingAvatarPopUpMenu: false
     };
-    const wrapper = shallow(<UnconnectedAvatarPopUpMenu {...props} />);
-    expect(wrapper.find('noscript').exists()).toEqual(true);
+    const wrapper = shallow(<UnconnectedPopUpMenu {...props} />);
+    expect(wrapper.type()).toEqual(null);
   });
 
   it('should show avatar pop up menu when the prop isShowingAvatarPopUpMenu is true', () => {
     const props = {
       isShowingAvatarPopUpMenu: true
     };
-    const wrapper = shallow(<UnconnectedAvatarPopUpMenu {...props} />);
+    const wrapper = shallow(<UnconnectedPopUpMenu {...props} />);
     expect(wrapper.find(PopUpMenu).exists()).toEqual(true);
   });
 });
@@ -72,19 +72,16 @@ describe('actions', () => {
 });
 
 describe('avatar reducers', () => {
-  const initialState = {
-    isShowingAvatarPopUpMenu: false
-  };
-
   it('should return initial state', () => {
-    expect(header.reducer(undefined, {})).toEqual(initialState);
+    expect(header.reducer(undefined, {})).toEqual(header.initialState);
   });
 
   it('should return avatar pop up menu open state', () => {
     const actions = {
       type: header.TOGGLE_AVATAR_POP_UP_MENU
     };
-    expect(header.reducer(initialState, actions)).toEqual({
+    expect(header.reducer(header.initialState, actions)).toEqual({
+      ...header.initialState,
       isShowingAvatarPopUpMenu: true
     });
   });
@@ -98,7 +95,8 @@ describe('avatar reducers', () => {
         type: header.TOGGLE_AVATAR_POP_UP_MENU
       }
     ];
-    expect(header.reducer(initialState, actions)).toEqual({
+    expect(header.reducer(header.initialState, actions)).toEqual({
+      ...header.initialState,
       isShowingAvatarPopUpMenu: false
     });
   });

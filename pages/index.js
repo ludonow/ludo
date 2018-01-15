@@ -1,7 +1,7 @@
 import withRedux from 'next-redux-wrapper';
 
 import configureStore from '../redux/createStore';
-import withApp from '../containers/withApp';
+import withApp from '../components/withApp';
 
 import Main from '../components/Main';
 
