@@ -5,22 +5,21 @@ import { all, takeLatest } from 'redux-saga/effects';
 
 import * as auth from './module/auth';
 import * as header from './module/header';
+import * as language from './module/language';
 
 export const exampleInitialState = {
   auth: {
+    isLoggingIn: false,
     photoUrl: '',
-    userId: null
+    userId: 'default'
   },
-  header: {
-    isShowingAvatarPopUpMenu: false,
-    isShowingMenuPopUpMenu: false,
-    listItems: ['登入']
-  }
+  language: 'zh-tw'
 };
 
 const rootReducer = combineReducers({
   auth: auth.reducer,
-  header: header.reducer
+  header: header.reducer,
+  language: language.reducer
 });
 
 const sagaMiddleware = createSagaMiddleware();

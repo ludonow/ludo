@@ -1,7 +1,6 @@
 export const initialState = {
   isShowingAvatarPopUpMenu: false,
-  isShowingMenuPopUpMenu: false,
-  listItems: ['登入']
+  isShowingMenuPopUpMenu: false
 };
 
 // Actions

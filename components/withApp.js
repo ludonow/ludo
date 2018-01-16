@@ -9,9 +9,6 @@ const withApp = (Child) => {
       <main>
         <Child {...props} />
       </main>
-      <footer>
-        <h1>Footer</h1>
-      </footer>
     </div>
   );
 

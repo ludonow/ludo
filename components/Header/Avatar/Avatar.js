@@ -1,12 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
+import ReactDropDownMenu from 'react-dd-menu';
 import styled from 'styled-components';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 
-import * as header from '../../../redux/module/header';
-
+import DropDownMenu from '../../../containers/DropDownMenuContainer';
 import Icon from './Icon';
-import PopUpMenu from './PopUpMenu';
 
 const AvatarWrapper = styled.div`
   align-items: center;
@@ -15,15 +12,49 @@ const AvatarWrapper = styled.div`
   right: 0;
 `;
 
-export const UnconnectedAvatar = ({ togglePopUpMenu }) => (
-  <AvatarWrapper onClick={togglePopUpMenu}>
-    <Icon />
-    <PopUpMenu />
-  </AvatarWrapper>
-);
+const ButtonWrapper = styled.button`
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
+  margin: 0 10px;
+  padding: 0;
+`;
 
-const mapDispatchToProps = dispatch => ({
-  togglePopUpMenu: bindActionCreators(header.toggleAvatarPopUpMenu, dispatch)
-});
+export class Avatar extends Component {
+  constructor() {
+    super();
+    this.state = {
+      isMenuOpen: false
+    };
+    this.close = this.close.bind(this);
+    this.toggle = this.toggle.bind(this);
+  }
 
-export default connect(null, mapDispatchToProps)(UnconnectedAvatar);
+  close() {
+    this.setState({ isMenuOpen: false });
+  }
+
+  toggle() {
+    this.setState({ isMenuOpen: !this.state.isMenuOpen });
+  }
+
+  render() {
+    const menuOptions = {
+      align: 'right',
+      close: this.close,
+      closeOnInsideClick: false,
+      isOpen: this.state.isMenuOpen,
+      toggle: <ButtonWrapper onClick={this.toggle}><Icon /></ButtonWrapper>
+    };
+
+    return (
+      <AvatarWrapper>
+        <ReactDropDownMenu {...menuOptions}>
+          <DropDownMenu />
+        </ReactDropDownMenu>
+      </AvatarWrapper>
+    );
+  }
+}
+
+export default Avatar;

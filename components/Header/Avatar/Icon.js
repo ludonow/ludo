@@ -7,8 +7,6 @@ import { withEither } from '../../hoc/hoc';
 export const defaultAvatarSrc = '/static/default-avatar.png';
 
 const AvatarIconWrapper = styled.div`
-  padding: 10px;
-
   img {
     height: 30px;
   }
@@ -36,6 +34,4 @@ const mapStateToProps = state => ({
   userPhotoUrl: state.auth.userPhotoUrl
 });
 
-const AvatarIcon = connect(mapStateToProps)(UnconnectedIcon);
-
-export default AvatarIcon;
+export default connect(mapStateToProps)(UnconnectedIcon);
