@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDropDownMenu from 'react-dd-menu';
 import styled from 'styled-components';
 
-import DropDownMenu from '../../../containers/DropDownMenuContainer';
+import DropDownMenu from '../../../containers/HeaderAvatarDropDownMenu';
 import Icon from './Icon';
 
 const AvatarWrapper = styled.div`

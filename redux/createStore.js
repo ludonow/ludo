@@ -1,6 +1,6 @@
+import createSagaMiddleware from 'redux-saga';
 import { applyMiddleware, createStore, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import createSagaMiddleware from 'redux-saga';
 import { all, takeLatest } from 'redux-saga/effects';
 
 import * as auth from './module/auth';
