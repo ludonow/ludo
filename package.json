@@ -40,6 +40,7 @@
     "flow-bin": "^0.63.1",
     "jest": "^22.0.3",
     "jest-styled-components": "^4.9.0",
+    "redux-mock-store": "^1.4.0",
     "redux-saga-test-plan": "^3.3.1",
     "sinon": "^4.1.3"
   },

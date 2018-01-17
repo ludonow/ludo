@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 
@@ -26,9 +26,7 @@ const DropDownMenuWrapper = styled.div`
 const DropDownMenu = ({ language, userId }) => {
   const { avatar } = multiLanguage[language].header;
 
-  const isLoggedIn = !(userId === 'default');
-
-  const dropDownMenuItems = isLoggedIn ?
+  const dropDownMenuItems = (userId !== 'defaultUserId') ?
     avatar.authorizedDropDownMenuItems :
     avatar.unAuthorizedDropDownMenuItems;
   return (

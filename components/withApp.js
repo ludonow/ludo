@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Header from '../components/Header/Header';
+import Header from './Header/Header';
 
 const withApp = (Child) => {
   const WrappedComponent = props => (

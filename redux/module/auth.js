@@ -1,10 +1,17 @@
-import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 import md5 from 'blueimp-md5';
 import es6promise from 'es6-promise';
 
 import axios from '../../axios-config';
 
 es6promise.polyfill();
+
+export const initialState = {
+  isLoggingIn: false,
+  loginError: {},
+  photoUrl: 'defaultPhotoUrl',
+  userId: 'defaultUserId'
+};
 
 // Actions
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
@@ -21,25 +28,25 @@ export const login = loginData => ({
 });
 
 // Reducer
-export const reducer = (state = {}, action = {}) => {
+export const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case LOGIN_REQUEST:
       return {
         ...state,
-        loading: true
+        isLoggingIn: true
       };
     case LOGIN_SUCCESS:
       return {
         ...state,
-        logginIn: true,
-        photo: action.userInfo.photoUrl,
+        isLoggingIn: true,
+        photoUrl: action.userInfo.photoUrl,
         userId: action.userInfo.userId
       };
     case LOGIN_FAIL:
       return {
         ...state,
-        loginError: action.error,
-        logginIn: false
+        isLoggingIn: false,
+        loginError: action.error
       };
     case LOGOUT:
       return {
