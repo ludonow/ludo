@@ -14,7 +14,7 @@ Enzyme.configure({ adapter: new Adapter() });
 const mockStore = configureStore();
 
 describe('drop down menu view', () => {
-  it('should should use correct langage as text', () => {
+  it('should use correct langage as text', () => {
     const testState = {
       auth: {
         userId: 'defaultUserId'
