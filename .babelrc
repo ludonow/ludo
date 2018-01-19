@@ -1,6 +1,7 @@
 {
   "plugins": [
-    [ "styled-components", { "ssr": true, "displayName": true, "preprocess": false } ]
+    [ "styled-components", { "ssr": true, "displayName": true, "preprocess": false } ],
+    "transform-flow-strip-types"
   ],
   "presets": [
     "es2015",
