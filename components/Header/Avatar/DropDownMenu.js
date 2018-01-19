@@ -1,8 +1,14 @@
+// @flow
 import React from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 
 import multiLanguage from '../../../static/multiLanguage';
+
+type Props = {
+  language: string,
+  userId: string
+};
 
 const DropDownMenuWrapper = styled.div`
   background-color: white;
@@ -12,34 +18,44 @@ const DropDownMenuWrapper = styled.div`
   right: 0;
   top: 100%;
 
+  a {
+    color: black;
+    text-decoration: none;
+  }
+
   li {
     font-size: 0.8rem;
     padding: 10px 30px;
     width: max-content;
 
     &:hover {
-      background-color: rgba(0, 0, 0, 0.1);
+      background-color: rgba(0, 0, 0, 0.3);
+      color: white;
     }
   }
 `;
 
-const DropDownMenu = ({ language, userId }) => {
+const DropDownMenu = ({ language, userId }: Props) => {
   const { avatar } = multiLanguage[language].header;
 
   const dropDownMenuItems = (userId !== 'defaultUserId') ?
     avatar.authorizedDropDownMenuItems :
     avatar.unAuthorizedDropDownMenuItems;
+  const links = ['/login'];
   return (
     <DropDownMenuWrapper>
       {
         dropDownMenuItems.map((listItem, index) => (
-          <li key={`avatar-drop-down-menu-${index}`}>
-            <Link href="/login">
-              <a>
+          <Link
+            href={links[index]}
+            key={`avatar-drop-down-menu-${index}`}
+          >
+            <a>
+              <li>
                 {listItem}
-              </a>
-            </Link>
-          </li>
+              </li>
+            </a>
+          </Link>
         ))
       }
     </DropDownMenuWrapper>

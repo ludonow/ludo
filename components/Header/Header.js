@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import Link from 'next/link';
+
+import { IconWrapper } from './baseStyle';
 
 import Avatar from './Avatar/Avatar';
 import Menu from './Menu/Menu';
-
-import { IconWrapper } from './baseStyle';
 
 const LudoLogoSrc = '/static/LudoLogo.png';
 
@@ -26,7 +27,11 @@ const LogoWrapper = IconWrapper.extend`
 
 const Logo = () => (
   <LogoWrapper>
-    <img alt="logo" src={LudoLogoSrc} />
+    <Link href="/index">
+      <a>
+        <img alt="logo" src={LudoLogoSrc} />
+      </a>
+    </Link>
   </LogoWrapper>
 );
 

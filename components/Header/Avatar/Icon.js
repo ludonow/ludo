@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
@@ -5,6 +6,10 @@ import { connect } from 'react-redux';
 import { withEither } from '../../hoc/hoc';
 
 export const defaultAvatarSrc = '/static/default-avatar.png';
+
+type Props = {
+  userPhotoUrl: string
+};
 
 const AvatarIconWrapper = styled.div`
   img {
@@ -18,7 +23,7 @@ const DefaultAvatarIcon = () => (
   </AvatarIconWrapper>
 );
 
-const UserPhoto = ({ userPhotoUrl }) => (
+const UserPhoto = ({ userPhotoUrl }: Props) => (
   <AvatarIconWrapper>
     <img alt="user" src={userPhotoUrl} />
   </AvatarIconWrapper>
@@ -27,11 +32,11 @@ const UserPhoto = ({ userPhotoUrl }) => (
 const hasGotUserPhotoUrl = props => props.userPhotoUrl;
 
 export const UnconnectedIcon = withEither(hasGotUserPhotoUrl, UserPhoto)(
-  DefaultAvatarIcon
+  DefaultAvatarIcon,
 );
 
 const mapStateToProps = state => ({
-  userPhotoUrl: state.auth.userPhotoUrl
+  userPhotoUrl: state.auth.userPhotoUrl,
 });
 
 export default connect(mapStateToProps)(UnconnectedIcon);

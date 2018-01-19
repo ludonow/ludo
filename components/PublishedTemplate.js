@@ -6,15 +6,15 @@ import Tabs from './Tabs';
 
 const tabTitles = ['我的模板', '模板引用'];
 
-const MainWrapper = styled.div`
+const PublishedTemplateWrapper = styled.div`
   background-color: #ffc645;
 `;
 
-const Main = () => (
-  <MainWrapper>
+const PublishedTemplate = () => (
+  <PublishedTemplateWrapper>
     <Tabs tabTitles={tabTitles} />
     <NavBar />
-  </MainWrapper>
+  </PublishedTemplateWrapper>
 );
 
-export default Main;
+export default PublishedTemplate;

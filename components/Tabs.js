@@ -22,7 +22,7 @@ const Tabs = ({ tabTitles }) => (
 );
 
 Tabs.propTypes = {
-  tabTitles: PropTypes.PropTypes.arrayOf(PropTypes.string).isRequired
+  tabTitles: PropTypes.PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default Tabs;

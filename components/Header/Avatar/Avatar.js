@@ -1,9 +1,16 @@
+// @flow
 import React, { Component } from 'react';
 import ReactDropDownMenu from 'react-dd-menu';
 import styled from 'styled-components';
 
 import DropDownMenu from '../../../containers/HeaderAvatarDropDownMenu';
 import Icon from './Icon';
+
+type Props = {};
+
+type State = {
+  isMenuOpen: number
+};
 
 const AvatarWrapper = styled.div`
   align-items: center;
@@ -20,11 +27,11 @@ const ButtonWrapper = styled.button`
   padding: 0;
 `;
 
-export class Avatar extends Component {
+class Avatar extends Component<Props, State> {
   constructor() {
     super();
     this.state = {
-      isMenuOpen: false
+      isMenuOpen: false,
     };
     this.close = this.close.bind(this);
     this.toggle = this.toggle.bind(this);
@@ -44,7 +51,7 @@ export class Avatar extends Component {
       close: this.close,
       closeOnInsideClick: false,
       isOpen: this.state.isMenuOpen,
-      toggle: <ButtonWrapper onClick={this.toggle}><Icon /></ButtonWrapper>
+      toggle: <ButtonWrapper onClick={this.toggle}><Icon /></ButtonWrapper>,
     };
 
     return (

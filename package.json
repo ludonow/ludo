@@ -23,6 +23,7 @@
     "styled-components": "^2.4.0"
   },
   "devDependencies": {
+    "babel-eslint": "^8.2.1",
     "babel-jest": "^22.0.4",
     "babel-plugin-styled-components": "^1.4.0",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
@@ -33,6 +34,7 @@
     "enzyme-to-json": "^3.3.0",
     "eslint": "^4.14.0",
     "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-flowtype": "^2.41.0",
     "eslint-plugin-import": "2.7.0",
     "eslint-plugin-jest": "^21.5.0",
     "eslint-plugin-jsx-a11y": "6.0.2",
