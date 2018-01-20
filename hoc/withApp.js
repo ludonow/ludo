@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Header from './Header/Header';
+import Header from '../components/Header';
 
 const MainWrapper = styled.main`
   background-color: #ffc645;

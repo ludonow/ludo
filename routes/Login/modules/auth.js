@@ -2,7 +2,7 @@ import { call, put } from 'redux-saga/effects';
 import md5 from 'blueimp-md5';
 import es6promise from 'es6-promise';
 
-import axios from '../../axios-config';
+import axios from '../../../axios-config';
 
 es6promise.polyfill();
 
@@ -10,7 +10,7 @@ export const initialState = {
   isLoggingIn: false,
   loginError: {},
   photoUrl: 'defaultPhotoUrl',
-  userId: 'defaultUserId'
+  userId: 'defaultUserId',
 };
 
 // Actions
@@ -24,7 +24,7 @@ export const LOGOUT_FAIL = 'LOGOUT_FAIL';
 // Action Creators
 export const login = loginData => ({
   type: LOGIN_REQUEST,
-  loginData
+  loginData,
 });
 
 // Reducer
@@ -33,37 +33,37 @@ export const reducer = (state = initialState, action = {}) => {
     case LOGIN_REQUEST:
       return {
         ...state,
-        isLoggingIn: true
+        isLoggingIn: true,
       };
     case LOGIN_SUCCESS:
       return {
         ...state,
         isLoggingIn: true,
         photoUrl: action.userInfo.photoUrl,
-        userId: action.userInfo.userId
+        userId: action.userInfo.userId,
       };
     case LOGIN_FAIL:
       return {
         ...state,
         isLoggingIn: false,
-        loginError: action.error
+        loginError: action.error,
       };
     case LOGOUT:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     case LOGOUT_SUCCESS:
       return {
         ...state,
         loggingIn: false,
-        userId: null
+        userId: null,
       };
     case LOGOUT_FAIL:
       return {
         ...state,
         logoutError: action.error,
-        loggingIn: false
+        loggingIn: false,
       };
     default:
       return state;
@@ -85,8 +85,8 @@ export function* loginSaga(loginData) {
       apiParam: '/login',
       loginData: {
         eMail: loginData.eMail,
-        password: md5(loginData.password)
-      }
+        password: md5(loginData.password),
+      },
     };
     const responseData = yield call(fetchUserInfo, requestData);
     yield put({ type: LOGIN_SUCCESS, responseData });

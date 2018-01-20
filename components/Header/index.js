@@ -3,9 +3,8 @@ import styled from 'styled-components';
 import Link from 'next/link';
 
 import { IconWrapper } from './baseStyle';
-
-import Avatar from './Avatar/Avatar';
-import Menu from './Menu/Menu';
+import Avatar from './Avatar';
+import Menu from './Menu';
 
 const LudoLogoSrc = '/static/LudoLogo.png';
 

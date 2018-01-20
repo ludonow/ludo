@@ -1,5 +1,5 @@
 import React from 'react';
-import Enzyme, { shallow } from 'enzyme';
+import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import configureStore from 'redux-mock-store';
 
@@ -7,7 +7,7 @@ import shallowWithStore from './shallowWithStore';
 
 import multiLanguage from '../static/multiLanguage';
 
-import HeaderAvatarDropDownMenu from '../containers/HeaderAvatarDropDownMenu';
+import HeaderAvatarDropDownMenu from '../components/Header/Avatar/DropDownMenu';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -17,11 +17,11 @@ describe('drop down menu view', () => {
   it('should use correct langage as text when user is not logging in', () => {
     const testState = {
       auth: {
-        userId: 'defaultUserId'
+        userId: 'defaultUserId',
       },
       multiLanguage: {
-        language: 'zh-tw'
-      }
+        language: 'zh-tw',
+      },
     };
     const store = mockStore(testState);
     const component = shallowWithStore(<HeaderAvatarDropDownMenu />, store);

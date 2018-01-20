@@ -12,8 +12,10 @@ const MenuWrapper = IconWrapper.extend`
   padding: 0 10px;
 `;
 
-export default ({ togglePopUpMenu }: Props) => (
+const Menu = ({ togglePopUpMenu }: Props) => (
   <MenuWrapper onClick={togglePopUpMenu}>
     HeaderMenu
   </MenuWrapper>
 );
+
+export default Menu;

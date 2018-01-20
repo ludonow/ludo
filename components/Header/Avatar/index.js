@@ -3,13 +3,13 @@ import React, { Component } from 'react';
 import ReactDropDownMenu from 'react-dd-menu';
 import styled from 'styled-components';
 
-import DropDownMenu from '../../../containers/HeaderAvatarDropDownMenu';
+import DropDownMenuContainer from './DropDownMenuContainer';
 import Icon from './Icon';
 
 type Props = {};
 
 type State = {
-  isMenuOpen: number
+  isMenuOpen: boolean
 };
 
 const AvatarWrapper = styled.div`
@@ -57,7 +57,7 @@ class Avatar extends Component<Props, State> {
     return (
       <AvatarWrapper>
         <ReactDropDownMenu {...menuOptions}>
-          <DropDownMenu />
+          <DropDownMenuContainer />
         </ReactDropDownMenu>
       </AvatarWrapper>
     );

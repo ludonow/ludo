@@ -1,7 +1,4 @@
-import { all, call, put, takeLatest } from 'redux-saga/effects';
 import es6promise from 'es6-promise';
-
-import axios from '../../axios-config';
 
 es6promise.polyfill();
 
@@ -16,21 +13,21 @@ export const reducer = (state = {}, action = {}) => {
     case TEMPLATE_FETCH_REQUEST:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     case TEMPLATE_FETCH_SUCCESS:
       return {
         ...state,
         logginIn: true,
         photo: action.userInfo.photoUrl,
-        userId: action.userInfo.userId
+        userId: action.userInfo.userId,
       };
     case TEMPLATE_FETCH_FAIL:
       return {
         ...state,
         logginIn: true,
         photo: action.userInfo.photoUrl,
-        userId: action.userInfo.userId
+        userId: action.userInfo.userId,
       };
     default:
       return state;

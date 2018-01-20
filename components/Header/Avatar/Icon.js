@@ -1,9 +1,9 @@
 // @flow
 import React from 'react';
-import styled from 'styled-components';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 
-import { withEither } from '../../hoc/hoc';
+import withEither from '../../../hoc/withEither';
 
 export const defaultAvatarSrc = '/static/default-avatar.png';
 

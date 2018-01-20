@@ -1,5 +1,5 @@
 export const initialState = {
-  language: 'zh-tw'
+  language: 'zh-tw',
 };
 
 // Reducer

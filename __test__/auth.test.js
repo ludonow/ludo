@@ -1,7 +1,7 @@
 import { call, put } from 'redux-saga/effects';
 import md5 from 'blueimp-md5';
 
-import * as auth from '../redux/module/auth';
+import * as auth from '../routes/Login/modules/auth';
 import testLogInData from '../testLogInData.data';
 
 const loginSuccess = userInfo => ({ type: auth.LOGIN_SUCCESS, userInfo });
@@ -16,8 +16,8 @@ describe('login', () => {
       apiParam: '/login',
       loginData: {
         eMail: testLogInData.eMail,
-        password: md5(testLogInData.password)
-      }
+        password: md5(testLogInData.password),
+      },
     };
     const expected = call(auth.fetchUserInfo, requestData);
     expect(actual.value).not.toBeUndefined();

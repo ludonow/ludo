@@ -1,6 +1,7 @@
 import React from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
 import { injectGlobal, ServerStyleSheet } from 'styled-components';
+
 import resetJS from '../static/reset';
 
 injectGlobal`
