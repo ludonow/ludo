@@ -15,7 +15,8 @@ type State = {
 const AvatarWrapper = styled.div`
   align-items: center;
   display: flex;
-  position: relative;
+  height: 100%;
+  position: absolute;
   right: 0;
 `;
 
@@ -23,7 +24,8 @@ const ButtonWrapper = styled.button`
   background-color: transparent;
   border: none;
   border-radius: 50%;
-  margin: 0 10px;
+  cursor: pointer;
+  margin: 0 20px;
   padding: 0;
 `;
 

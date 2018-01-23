@@ -1,13 +1,12 @@
 // @flow
 import React from 'react';
-import styled from 'styled-components';
 import Link from 'next/link';
-
-import multiLanguage from '../../../static/multiLanguage';
+import styled from 'styled-components';
+import { translate } from 'react-i18next';
 
 type Props = {
-  language: string,
-  userId: string
+  t: Function,
+  userId: string,
 };
 
 const DropDownMenuWrapper = styled.div`
@@ -35,31 +34,27 @@ const DropDownMenuWrapper = styled.div`
   }
 `;
 
-const DropDownMenu = ({ language, userId }: Props) => {
-  const { avatar } = multiLanguage[language].header;
+const DropDownMenu = ({ t, userId }: Props) => (
+  <DropDownMenuWrapper>
+    {
+      userId === 'defaultUserId' ?
+        <Link href="/login">
+          <a>
+            <li>
+              {t('layout:login')}
+            </li>
+          </a>
+        </Link>
+      :
+        <Link href="/logout">
+          <a>
+            <li>
+              {t('layout:logout')}
+            </li>
+          </a>
+        </Link>
+    }
+  </DropDownMenuWrapper>
+);
 
-  const dropDownMenuItems = (userId !== 'defaultUserId') ?
-    avatar.authorizedDropDownMenuItems :
-    avatar.unAuthorizedDropDownMenuItems;
-  const links = ['/login'];
-  return (
-    <DropDownMenuWrapper>
-      {
-        dropDownMenuItems.map((listItem, index) => (
-          <Link
-            href={links[index]}
-            key={`avatar-drop-down-menu-${index}`}
-          >
-            <a>
-              <li>
-                {listItem}
-              </li>
-            </a>
-          </Link>
-        ))
-      }
-    </DropDownMenuWrapper>
-  );
-};
-
-export default DropDownMenu;
+export default translate(['layout'])(DropDownMenu);

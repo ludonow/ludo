@@ -4,7 +4,6 @@ import Link from 'next/link';
 
 import { IconWrapper } from './baseStyle';
 import Avatar from './Avatar';
-import Menu from './Menu';
 
 const LudoLogoSrc = '/static/LudoLogo.png';
 
@@ -16,7 +15,6 @@ const HeaderWrapper = styled.div`
 `;
 
 const LogoWrapper = IconWrapper.extend`
-  margin: 0 auto;
   padding: 0 20px;
 
   img {
@@ -36,7 +34,6 @@ const Logo = () => (
 
 const Header = () => (
   <HeaderWrapper>
-    <Menu />
     <Logo />
     <Avatar />
   </HeaderWrapper>
