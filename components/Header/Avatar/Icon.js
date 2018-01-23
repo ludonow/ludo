@@ -13,7 +13,7 @@ type Props = {
 
 const AvatarIconWrapper = styled.div`
   img {
-    height: 30px;
+    height: 5vh;
   }
 `;
 

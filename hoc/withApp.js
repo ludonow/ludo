@@ -1,8 +1,9 @@
 // @flow
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import Header from '../components/Header';
+import Sidebar from '../components/Sidebar';
 
 const MainWrapper = styled.main`
   background-color: #ffc645;
@@ -13,6 +14,7 @@ const withApp = (Child) => {
   const WrappedComponent = props => (
     <div>
       <Header />
+      <Sidebar />
       <MainWrapper>
         <Child {...props} />
       </MainWrapper>

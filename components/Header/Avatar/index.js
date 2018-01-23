@@ -25,7 +25,7 @@ const ButtonWrapper = styled.button`
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  margin: 0 20px;
+  margin: 0 1vw;
   padding: 0;
 `;
 

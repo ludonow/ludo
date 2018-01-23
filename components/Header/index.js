@@ -10,15 +10,16 @@ const LudoLogoSrc = '/static/LudoLogo.png';
 const HeaderWrapper = styled.div`
   background-color: #717070;
   display: flex;
-  height: 50px;
+  height: 9vh;
   position: relative;
 `;
 
 const LogoWrapper = IconWrapper.extend`
-  padding: 0 20px;
+  padding-left: 3vw;
 
   img {
-    height: 25px;
+    height: 4vh;
+    width: 7vw;
   }
 `;
 
