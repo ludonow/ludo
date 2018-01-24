@@ -1,7 +1,6 @@
 // @flow
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import Link from 'next/link';
 
 import withEither from '../../hoc/withEither';
 import Button from './Button';
@@ -31,12 +30,7 @@ class Sidebar extends Component<Props, State> {
     this.state = {
       isMenuOpen: false,
     };
-    this.close = this.close.bind(this);
     this.toggle = this.toggle.bind(this);
-  }
-
-  close() {
-    this.setState({ isMenuOpen: false });
   }
 
   toggle() {
@@ -46,7 +40,7 @@ class Sidebar extends Component<Props, State> {
   render() {
     return (
       <SidebarWrapper>
-        <RenderedSidebar
+        <Menu
           isMenuOpen={this.state.isMenuOpen}
           toggle={this.toggle}
         />

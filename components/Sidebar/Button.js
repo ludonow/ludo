@@ -16,7 +16,10 @@ const ButtonWrapper = styled.div`
 `;
 
 const Button = ({ toggle }: Props) => (
-  <ButtonWrapper onClick={toggle}>
+  <ButtonWrapper
+    onFocus={toggle}
+    onMouseOver={toggle}
+  >
     <img alt="sidebar-icon" src={sidebarSrc} />
   </ButtonWrapper>
 );

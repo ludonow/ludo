@@ -9,7 +9,6 @@ type Props = {
 };
 
 const SearchWrapper = styled.div`
-  background: white;
   margin: 0 auto;
   padding: 30px 20px;
   text-align: center;
