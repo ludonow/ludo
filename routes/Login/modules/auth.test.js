@@ -37,9 +37,15 @@ describe('login flow', () => {
     expect(actual.done).toEqual(false);
   });
 
-  it('Successfully calling loginApi. Dispatch login success action', () => {
+  it('Successfully calling loginApi. Dispatch login success action with reponse data', () => {
+    const photoUrl = 'photoUrl';
+    const userId = 'userId';
+    const fakeReponse = {
+      photoUrl,
+      userId,
+    };
     const actual = generator.next();
-    const expected = put(loginSuccess());
+    const expected = put(loginSuccess(fakeReponse));
     expect(actual.value).toEqual(expected);
     expect(actual.done).toEqual(false);
   });

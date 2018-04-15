@@ -17,27 +17,10 @@ export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGOUT_FAIL = 'LOGOUT_FAIL';
 
-// - Action Creators
-export const loginRequest = loginData => ({
-  type: LOGIN_REQUEST,
-  payload: { loginData },
-});
-
-export const loginSuccess = userInfo => ({
-  type: LOGIN_SUCCESS,
-  payload: { userInfo },
-});
-
-export const loginFail = error => ({
-  type: LOGIN_FAIL,
-  payload: { error },
-});
-
 // - State
 export const initialState = {
   error: {},
   isFetching: false,
-  isLoggedIn: false,
   photoUrl: 'defaultPhotoUrl',
   userId: 'defaultUserId',
 };
@@ -54,9 +37,8 @@ export const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         isFetching: false,
-        isLoggedIn: true,
-        photoUrl: action.payload.userInfo.photoUrl,
-        userId: action.payload.userInfo.userId,
+        photoUrl: action.payload.photoUrl,
+        userId: action.payload.userId,
       };
     case LOGIN_FAIL:
       return {
@@ -73,7 +55,6 @@ export const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         isFetching: false,
-        isLoggedIn: false,
         userId: null,
       };
     case LOGOUT_FAIL:
@@ -87,16 +68,56 @@ export const reducer = (state = initialState, action = {}) => {
   }
 };
 
+// - Action Creators
+export const loginRequest = ({
+  email,
+  password,
+}) => ({
+  type: LOGIN_REQUEST,
+  payload: {
+    email,
+    password,
+  },
+});
+
+export const loginSuccess = ({
+  photoUrl,
+  userId,
+}) => ({
+  type: LOGIN_SUCCESS,
+  payload: {
+    photoUrl,
+    userId,
+  },
+});
+
+export const loginFail = error => ({
+  type: LOGIN_FAIL,
+  payload: { error },
+});
+
+export const logoutRequest = () => ({ type: LOGOUT_REQUEST });
+
+export const logoutSuccess = () => ({ type: LOGOUT_SUCCESS });
+
+export const logoutFail = error => ({
+  type: LOGOUT_FAIL,
+  payload: { error },
+});
+
 // - Api
-export const loginApi = ({ apiParam, loginData }) => (
-  axios.post(apiParam, loginData)
+export const loginApi = ({
+  accountInfo,
+  apiParam,
+}) => (
+  axios.post(apiParam, accountInfo)
 );
 
-export const logOutApi = ({ apiParam }) => (
+export const logoutApi = ({ apiParam }) => (
   axios.post(apiParam)
 );
 
-// Saga
+// - Sagas
 export function* login(action) {
   try {
     const {
@@ -104,14 +125,28 @@ export function* login(action) {
       password,
     } = action.payload;
     const loginRequestData = {
-      apiParam: '/login',
-      loginData: {
+      accountInfo: {
         email,
         password: md5(password),
       },
+      apiParam: '/login',
     };
     const loginResponse = yield call(loginApi, loginRequestData);
-    yield put(loginSuccess(loginResponse));
+    const {
+      message,
+      photoUrl,
+      status,
+      userId,
+    } = loginResponse.data;
+
+    if (status === '200') {
+      yield put(loginSuccess({
+        photoUrl,
+        userId,
+      }));
+    } else {
+      yield put(loginFail({ message }));
+    }
   } catch (error) {
     yield put(loginFail(error));
   }
@@ -122,9 +157,9 @@ export function* logout() {
     const requestData = {
       apiParam: '/logout',
     };
-    yield call(logOutApi, requestData);
-    yield put({ type: LOGOUT_SUCCESS, userId: null });
+    yield call(logoutApi, requestData);
+    yield put(logoutSuccess());
   } catch (error) {
-    yield put({ type: LOGOUT_FAIL, error });
+    yield put(logoutFail(error));
   }
 }

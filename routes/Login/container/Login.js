@@ -77,7 +77,11 @@ const mapStateToProps = store => ({
 
 const mapDispatchToProps = dispatch => ({
   loginRequestAction: (email, password) => {
-    dispatch(loginRequest(email, password));
+    const accountInfo = {
+      email,
+      password,
+    };
+    dispatch(loginRequest(accountInfo));
   },
 });
 
