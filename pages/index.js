@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import withRedux from 'next-redux-wrapper';
 import { I18nextProvider } from 'react-i18next';
-
 import startI18n from '../tools/startI18n';
 import { getTranslation } from '../tools/translationHelpers';
 import configureStore from '../store/createStore';

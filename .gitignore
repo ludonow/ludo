@@ -1,5 +1,6 @@
 node_modules/
 .next/
+coverage/
 
 stats.json
 desktop.ini

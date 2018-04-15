@@ -16,7 +16,7 @@ const sagaMiddleware = createSagaMiddleware();
 function* rootSaga() {
   yield all([
     yield takeLatest(auth.LOGIN_REQUEST, auth.login),
-    yield takeLatest(auth.LOGOUT, auth.logout),
+    yield takeLatest(auth.LOGOUT_REQUEST, auth.logout),
   ]);
 }
 

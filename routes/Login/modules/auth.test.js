@@ -1,38 +1,50 @@
-import { call, put } from 'redux-saga/effects';
+import {
+  call,
+  put,
+} from 'redux-saga/effects';
 import md5 from 'blueimp-md5';
+import {
+  LOGIN_REQEUST,
+  login,
+  loginApi,
+  loginFail,
+  loginSuccess,
+} from './auth';
+import testLogInData from '../../../testLogInData.data';
 
-import * as auth from '../routes/Login/modules/auth';
-import testLogInData from '../testLogInData.data';
+describe('login flow', () => {
+  const action = {
+    type: LOGIN_REQEUST,
+    payload: {
+      email: testLogInData.email,
+      password: testLogInData.password,
+    },
+  };
+  const generator = login(action);
 
-const loginSuccess = userInfo => ({ type: auth.LOGIN_SUCCESS, userInfo });
-const loginFail = error => ({ type: auth.LOGIN_FAIL, error });
-
-describe('login', () => {
-  const generator = auth.loginSaga(testLogInData);
-
-  it('should get user data', () => {
+  it('Start login request process. Call loginApi', () => {
     const actual = generator.next();
     const requestData = {
       apiParam: '/login',
       loginData: {
-        eMail: testLogInData.eMail,
-        password: md5(testLogInData.password),
+        email: action.payload.email,
+        password: md5(action.payload.password),
       },
     };
-    const expected = call(auth.fetchUserInfo, requestData);
+    const expected = call(loginApi, requestData);
     expect(actual.value).not.toBeUndefined();
     expect(actual.value).toEqual(expected);
     expect(actual.done).toEqual(false);
   });
 
-  it('and then trigger login success action', () => {
+  it('Successfully calling loginApi. Dispatch login success action', () => {
     const actual = generator.next();
     const expected = put(loginSuccess());
     expect(actual.value).toEqual(expected);
     expect(actual.done).toEqual(false);
   });
 
-  it('should call loginFail when error occurs', () => {
+  it('Fail to call loginApi. Dispatch login fail action', () => {
     const errorMessage = 'login fail';
     const actual = generator.throw(errorMessage);
     const expected = put(loginFail(errorMessage));
