@@ -20,7 +20,8 @@ export const LOGOUT_FAIL = 'LOGOUT_FAIL';
 // - State
 export const initialState = {
   error: {},
-  isFetching: false,
+  isLoggedIn: false,
+  isLoggingIn: false,
   photoUrl: 'defaultPhotoUrl',
   userId: 'defaultUserId',
 };
@@ -31,12 +32,13 @@ export const reducer = (state = initialState, action = {}) => {
     case LOGIN_REQUEST:
       return {
         ...state,
-        isFetching: true,
+        isLoggingIn: true,
       };
     case LOGIN_SUCCESS:
       return {
         ...state,
-        isFetching: false,
+        isLoggedIn: true,
+        isLoggingIn: false,
         photoUrl: action.payload.photoUrl,
         userId: action.payload.userId,
       };
@@ -44,24 +46,25 @@ export const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         error: action.payload.error,
-        isFetching: false,
+        isLoggingIn: false,
       };
     case LOGOUT_REQUEST:
       return {
         ...state,
-        isFetching: true,
+        isLoggingIn: true,
       };
     case LOGOUT_SUCCESS:
       return {
         ...state,
-        isFetching: false,
+        isLoggedIn: false,
+        isLoggingIn: false,
         userId: null,
       };
     case LOGOUT_FAIL:
       return {
         ...state,
         error: action.payload.error,
-        isFetching: false,
+        isLoggingIn: false,
       };
     default:
       return state;
@@ -145,7 +148,7 @@ export function* login(action) {
         userId,
       }));
     } else {
-      yield put(loginFail({ message }));
+      throw Error(message);
     }
   } catch (error) {
     yield put(loginFail(error));

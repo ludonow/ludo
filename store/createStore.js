@@ -1,13 +1,22 @@
-import { applyMiddleware, combineReducers, createStore } from 'redux';
+import {
+  applyMiddleware,
+  combineReducers,
+  createStore,
+} from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
-import { all, takeLatest } from 'redux-saga/effects';
+import {
+  all,
+  takeLatest,
+} from 'redux-saga/effects';
+import { reducer as formReducer } from 'redux-form';
 
 import * as auth from '../routes/Login/modules/auth';
 import * as language from './module/language';
 
 const rootReducer = combineReducers({
   auth: auth.reducer,
+  form: formReducer,
   multiLanguage: language.reducer,
 });
 

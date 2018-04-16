@@ -11,13 +11,17 @@ const middlewares = [];
 const mockStore = configureStore(middlewares);
 
 describe('Login container', () => {
-  it('', () => {
+  function getInitialStore() {
     const testState = {
       auth: {
-        isLoggedIn: false,
+        userId: null,
       },
     };
-    const store = mockStore(testState);
+    return mockStore(testState);
+  }
+
+  it('', () => {
+    const store = getInitialStore();
     const component = shallowWithStore(<ConnectedLogin />, store);
     expect(typeof component).toBe('object');
   });

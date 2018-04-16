@@ -1,16 +1,30 @@
 // @flow
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import { connect } from 'react-redux';
+import { reduxForm } from 'redux-form';
 import { loginRequest } from '../modules/auth';
-import TextField from '../components/TextField';
+import LoginForm from '../components/LoginForm';
 
-const LoginWrapper = styled.div`
-  background: white;
-  margin: 0 auto;
-  padding: 30px 20px;
-  text-align: center;
-`;
+const validate = (values) => {
+  const errors = {};
+  if (!values.username) {
+    errors.username = 'Required';
+  } else if (values.username.length > 15) {
+    errors.username = 'Must be 15 characters or less';
+  }
+  if (!values.email) {
+    errors.email = 'Required';
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = 'Invalid email address';
+  }
+
+  return errors;
+};
+
+const ConnectedLoginForm = reduxForm({
+  form: 'login',
+  validate,
+})(LoginForm);
 
 type Props = {
   loginRequestAction: func,
@@ -19,54 +33,16 @@ type Props = {
 class Login extends Component<Props> {
   constructor() {
     super();
-    this.state = {
-      email: '',
-      password: '',
-    };
-    this.handleEmailFieldChange = this.handleEmailFieldChange.bind(this);
-    this.handlePasswordFieldChange = this.handlePasswordFieldChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleEmailFieldChange(event) {
-    event.preventDefault();
-    this.setState({ email: event.currentTarget.value });
-  }
-
-  handlePasswordFieldChange(event) {
-    event.preventDefault();
-    this.setState({ password: event.currentTarget.value });
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-    const {
-      email,
-      password,
-    } = this.state;
-    this.props.loginRequestAction(email, password);
+  handleSubmit(values) {
+    this.props.loginRequestAction(values);
   }
 
   render() {
     return (
-      <LoginWrapper>
-        title
-        <TextField
-          handleChange={this.handleEmailFieldChange}
-          id="email"
-          placeholder="email"
-          type="text"
-        />
-        <TextField
-          handleChange={this.handlePasswordFieldChange}
-          id="password"
-          placeholder="password"
-          type="password"
-        />
-        <button onClick={this.handleSubmit}>
-          登入
-        </button>
-      </LoginWrapper>
+      <ConnectedLoginForm customSubmitHandler={this.handleSubmit} />
     );
   }
 }
@@ -76,11 +52,7 @@ const mapStateToProps = store => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  loginRequestAction: (email, password) => {
-    const accountInfo = {
-      email,
-      password,
-    };
+  loginRequestAction: (accountInfo) => {
     dispatch(loginRequest(accountInfo));
   },
 });
