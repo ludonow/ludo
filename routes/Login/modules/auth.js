@@ -19,7 +19,7 @@ export const LOGOUT_FAIL = 'LOGOUT_FAIL';
 
 // - State
 export const initialState = {
-  error: {},
+  errorMessage: '',
   isLoggedIn: false,
   isLoggingIn: false,
   photoUrl: 'defaultPhotoUrl',
@@ -45,7 +45,7 @@ export const reducer = (state = initialState, action = {}) => {
     case LOGIN_FAIL:
       return {
         ...state,
-        error: action.payload.error,
+        errorMessage: action.payload.message,
         isLoggingIn: false,
       };
     case LOGOUT_REQUEST:
@@ -63,7 +63,7 @@ export const reducer = (state = initialState, action = {}) => {
     case LOGOUT_FAIL:
       return {
         ...state,
-        error: action.payload.error,
+        errorMessage: action.payload.message,
         isLoggingIn: false,
       };
     default:
@@ -94,18 +94,18 @@ export const loginSuccess = ({
   },
 });
 
-export const loginFail = error => ({
+export const loginFail = ({ message }) => ({
   type: LOGIN_FAIL,
-  payload: { error },
+  payload: { message },
 });
 
 export const logoutRequest = () => ({ type: LOGOUT_REQUEST });
 
 export const logoutSuccess = () => ({ type: LOGOUT_SUCCESS });
 
-export const logoutFail = error => ({
+export const logoutFail = ({ message }) => ({
   type: LOGOUT_FAIL,
-  payload: { error },
+  payload: { message },
 });
 
 // - Api
@@ -142,14 +142,14 @@ export function* login(action) {
       userId,
     } = loginResponse.data;
 
-    if (status === '200') {
-      yield put(loginSuccess({
-        photoUrl,
-        userId,
-      }));
-    } else {
-      throw Error(message);
+    if (status !== '200') {
+      throw new Error(message);
     }
+
+    yield put(loginSuccess({
+      photoUrl,
+      userId,
+    }));
   } catch (error) {
     yield put(loginFail(error));
   }
