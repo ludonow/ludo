@@ -7,6 +7,7 @@ import {
   LOGIN_FAIL,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
+  initialState,
   login,
   loginApi,
   loginFail,
@@ -59,18 +60,7 @@ describe('auth action creators', () => {
 });
 
 describe('auth reducers', () => {
-  function getInitialState() {
-    return {
-      errorMessage: '',
-      isLoggedIn: false,
-      isLoggingIn: false,
-      photoUrl: 'defaultPhotoUrl',
-      userId: 'defaultUserId',
-    };
-  }
-
   it('Dispatch login request action. Expect isLoggedIn being true', () => {
-    const initialState = getInitialState();
     const action = {
       type: LOGIN_REQUEST,
     };
@@ -83,7 +73,6 @@ describe('auth reducers', () => {
   });
 
   it('Dispatch login success action. Expect auth flag change and userInfo update.', () => {
-    const initialState = getInitialState();
     const userInfo = {
       photoUrl: 'photoUrl',
       userId: 'userId',
@@ -100,7 +89,6 @@ describe('auth reducers', () => {
   });
 
   it('Dispatch login fail action. Expect auth flag change', () => {
-    const initialState = getInitialState();
     const error = {
       message: 'error message',
     };

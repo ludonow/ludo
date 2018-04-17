@@ -10,12 +10,23 @@ const LoginWrapper = styled.div`
   text-align: center;
 `;
 
+type renderFieldProps = {
+  input: any,
+  label: string,
+  type: string,
+  meta: {
+    touched: boolean,
+    error: string,
+    warning: any,
+  }
+};
+
 const renderField = ({
   input,
   label,
   type,
-  meta: { touched, error, warning }
-}) => (
+  meta: { touched, error, warning },
+}: renderFieldProps) => (
   <div>
     <label htmlFor={label}>{label}</label>
     <div>
@@ -32,18 +43,22 @@ const renderField = ({
 );
 
 type Props = {
-  customSubmitHandler: func,
+  errorMessage: string,
   handleSubmit: func,
+  loginRequestAction: func,
   isSubmitting: boolean,
+  pristine: boolean,
 };
 
 const LoginForm = ({
-  customSubmitHandler,
+  errorMessage,
   handleSubmit,
+  loginRequestAction,
   isSubmitting,
+  pristine,
 }: Props) => (
   <LoginWrapper>
-    <form onSubmit={handleSubmit(customSubmitHandler)}>
+    <form onSubmit={handleSubmit(loginRequestAction)}>
       <div>
         <Field
           component={renderField}
@@ -58,12 +73,13 @@ const LoginForm = ({
           type="password"
         />
       </div>
+      {errorMessage && <strong>{errorMessage}</strong>}
       <div>
         <button
-          disabled={isSubmitting}
+          disabled={isSubmitting || pristine}
           type="submit"
         >
-          Submit
+          登入
         </button>
       </div>
     </form>

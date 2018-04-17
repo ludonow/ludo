@@ -1,5 +1,4 @@
 // @flow
-import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { loginRequest } from '../modules/auth';
@@ -7,48 +6,25 @@ import LoginForm from '../components/LoginForm';
 
 const validate = (values) => {
   const errors = {};
-  if (!values.username) {
-    errors.username = 'Required';
-  } else if (values.username.length > 15) {
-    errors.username = 'Must be 15 characters or less';
-  }
+
   if (!values.email) {
-    errors.email = 'Required';
+    errors.email = '必填';
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Invalid email address';
+    errors.email = '不是有效的 Email';
+  }
+
+  if (!values.password) {
+    errors.password = '必填';
+  } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i.test(values.password)) {
+    errors.password = '密碼必須大於8碼，至少有1個數字和1個英文字';
   }
 
   return errors;
 };
 
-const ConnectedLoginForm = reduxForm({
-  form: 'login',
-  validate,
-})(LoginForm);
-
-type Props = {
-  loginRequestAction: func,
-};
-
-class Login extends Component<Props> {
-  constructor() {
-    super();
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleSubmit(values) {
-    this.props.loginRequestAction(values);
-  }
-
-  render() {
-    return (
-      <ConnectedLoginForm customSubmitHandler={this.handleSubmit} />
-    );
-  }
-}
-
 const mapStateToProps = store => ({
-  isLoggedIn: store.auth.isLoggedIn,
+  errorMessage: store.auth.errorMessage,
+  isSubmitting: store.auth.isLoggingIn,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -57,4 +33,11 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+const ConnectedLoginForm = connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+
+const ReduxFormConnectedLoginForm = reduxForm({
+  form: 'login',
+  validate,
+})(ConnectedLoginForm);
+
+export default ReduxFormConnectedLoginForm;
