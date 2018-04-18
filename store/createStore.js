@@ -5,13 +5,10 @@ import {
 } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
-import {
-  all,
-  takeLatest,
-} from 'redux-saga/effects';
+import { all } from 'redux-saga/effects';
 import { reducer as formReducer } from 'redux-form';
 
-import * as auth from '../routes/Login/modules/auth';
+import watchAuth, * as auth from '../routes/Login/modules/auth';
 import * as language from './module/language';
 
 const rootReducer = combineReducers({
@@ -24,8 +21,7 @@ const sagaMiddleware = createSagaMiddleware();
 
 function* rootSaga() {
   yield all([
-    yield takeLatest(auth.LOGIN_REQUEST, auth.login),
-    yield takeLatest(auth.LOGOUT_REQUEST, auth.logout),
+    watchAuth(),
   ]);
 }
 

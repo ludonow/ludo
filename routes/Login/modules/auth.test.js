@@ -77,9 +77,14 @@ describe('auth reducers', () => {
       photoUrl: 'photoUrl',
       userId: 'userId',
     };
-    const actual = reducer(initialState, loginSuccess(userInfo));
+    const testState = {
+      ...initialState,
+      errorMessage: '信箱或密碼錯誤',
+    };
+    const actual = reducer(testState, loginSuccess(userInfo));
     const expected = {
       ...initialState,
+      errorMessage: '',
       isLoggedIn: true,
       isLoggingIn: false,
       photoUrl: userInfo.photoUrl,
@@ -127,17 +132,17 @@ describe('Successful login flow', () => {
     expect(actual.done).toEqual(false);
   });
 
-  it('Successfully calling loginApi and receive correct response status. Dispatch login success action with reponse data', () => {
+  it('Successfully calling loginApi and receive correct response status. Dispatch login success action with response data', () => {
     const photoUrl = 'photoUrl';
     const userId = 'userId';
-    const fakeReponse = {
+    const fakeResponse = {
       data: {
         photoUrl,
         status: '200',
         userId,
       },
     };
-    const actual = generator.next(fakeReponse);
+    const actual = generator.next(fakeResponse);
     const expected = put(loginSuccess({
       photoUrl,
       userId,
@@ -218,15 +223,15 @@ describe('Login flow when user type wrong email or password', () => {
     expect(actual.done).toEqual(false);
   });
 
-  it('Successfully calling loginApi but receive incorrect response status. Dispatch login success action with reponse data', () => {
-    const fakeReponse = {
+  it('Successfully calling loginApi but receive incorrect response status. Dispatch login success action with response data', () => {
+    const fakeResponse = {
       data: {
         status: '400',
         message: '信箱或密碼錯誤',
       },
     };
-    const actual = generator.next(fakeReponse);
-    const expected = put(loginFail({ message: fakeReponse.data.message }));
+    const actual = generator.next(fakeResponse);
+    const expected = put(loginFail({ message: fakeResponse.data.message }));
     expect(actual.value).toEqual(expected);
     expect(actual.done).toEqual(false);
   });

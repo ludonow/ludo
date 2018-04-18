@@ -7,10 +7,6 @@ import withEither from '../../../hoc/withEither';
 
 export const defaultAvatarSrc = '/static/default-avatar.png';
 
-type Props = {
-  userPhotoUrl: string
-};
-
 const AvatarIconWrapper = styled.div`
   img {
     height: 5vh;
@@ -23,6 +19,10 @@ const DefaultAvatarIcon = () => (
   </AvatarIconWrapper>
 );
 
+type Props = {
+  userPhotoUrl: string
+};
+
 const UserPhoto = ({ userPhotoUrl }: Props) => (
   <AvatarIconWrapper>
     <img alt="user" src={userPhotoUrl} />
@@ -31,9 +31,7 @@ const UserPhoto = ({ userPhotoUrl }: Props) => (
 
 const hasGotUserPhotoUrl = props => props.userPhotoUrl;
 
-export const UnconnectedIcon = withEither(hasGotUserPhotoUrl, UserPhoto)(
-  DefaultAvatarIcon,
-);
+export const UnconnectedIcon = withEither(hasGotUserPhotoUrl, UserPhoto)(DefaultAvatarIcon);
 
 const mapStateToProps = state => ({
   userPhotoUrl: state.auth.userPhotoUrl,
