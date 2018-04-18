@@ -4,7 +4,6 @@ import {
 } from 'redux-saga/effects';
 import md5 from 'blueimp-md5';
 import es6promise from 'es6-promise';
-import { SubmissionError } from 'redux-form';
 import axios from '../../../axios-config';
 
 es6promise.polyfill();

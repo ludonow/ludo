@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Field } from 'redux-form';
 
-const LoginWrapper = styled.div`
+const LoginWrapper = styled.form`
   background: white;
   margin: 0 auto;
   padding: 30px 20px;
@@ -57,32 +57,30 @@ const LoginForm = ({
   isSubmitting,
   pristine,
 }: Props) => (
-  <LoginWrapper>
-    <form onSubmit={handleSubmit(loginRequestAction)}>
-      <div>
-        <Field
-          component={renderField}
-          label="email"
-          name="email"
-          type="email"
-        />
-        <Field
-          component={renderField}
-          label="password"
-          name="password"
-          type="password"
-        />
-      </div>
-      {errorMessage && <strong>{errorMessage}</strong>}
-      <div>
-        <button
-          disabled={isSubmitting || pristine}
-          type="submit"
-        >
-          登入
-        </button>
-      </div>
-    </form>
+  <LoginWrapper onSubmit={handleSubmit(loginRequestAction)}>
+    <div>
+      <Field
+        component={renderField}
+        label="email"
+        name="email"
+        type="email"
+      />
+      <Field
+        component={renderField}
+        label="password"
+        name="password"
+        type="password"
+      />
+    </div>
+    {errorMessage && <strong>{errorMessage}</strong>}
+    <div>
+      <button
+        disabled={isSubmitting || pristine}
+        type="submit"
+      >
+        登入
+      </button>
+    </div>
   </LoginWrapper>
 );
 
