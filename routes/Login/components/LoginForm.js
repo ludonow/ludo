@@ -45,16 +45,18 @@ const renderField = ({
 type Props = {
   errorMessage: string,
   handleSubmit: func,
-  loginRequestAction: func,
+  invalid: boolean,
   isSubmitting: boolean,
+  loginRequestAction: func,
   pristine: boolean,
 };
 
 const LoginForm = ({
   errorMessage,
   handleSubmit,
-  loginRequestAction,
+  invalid,
   isSubmitting,
+  loginRequestAction,
   pristine,
 }: Props) => (
   <LoginWrapper onSubmit={handleSubmit(loginRequestAction)}>
@@ -75,7 +77,7 @@ const LoginForm = ({
     {errorMessage && <strong>{errorMessage}</strong>}
     <div>
       <button
-        disabled={isSubmitting || pristine}
+        disabled={pristine || invalid || isSubmitting}
         type="submit"
       >
         登入
