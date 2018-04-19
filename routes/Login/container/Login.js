@@ -1,7 +1,11 @@
 // @flow
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import { loginRequest } from '../modules/auth';
+import {
+  getLoginErrorMessage,
+  getLoginButtonSubmittingStatus,
+  loginRequest,
+} from '../modules/auth';
 import LoginForm from '../components/LoginForm';
 
 const validate = (values) => {
@@ -23,8 +27,8 @@ const validate = (values) => {
 };
 
 const mapStateToProps = store => ({
-  errorMessage: store.auth.errorMessage,
-  isSubmitting: store.auth.isLoggingIn,
+  errorMessage: getLoginErrorMessage(store),
+  isSubmitting: getLoginButtonSubmittingStatus(store),
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -5,15 +5,13 @@ import {
   takeLatest,
 } from 'redux-saga/effects';
 import md5 from 'blueimp-md5';
-import es6promise from 'es6-promise';
 import axios from '../../../axios-config';
-
-es6promise.polyfill();
+import {
+  clearUserInfo,
+  fetchUserInfoRequest,
+} from './user';
 
 // - Actions
-export const FETCH_USER_INFO_REQUEST = 'FETCH_USER_INFO_REQUEST';
-export const FETCH_USER_INFO_SUCCESS = 'FETCH_USER_INFO_SUCCESS';
-export const FETCH_USER_INFO_FAIL = 'FETCH_USER_INFO_FAIL';
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
@@ -26,17 +24,12 @@ export const initialState = {
   errorMessage: '',
   isFetching: false,
   isLoggedIn: false,
-  isLoggingIn: false,
-  photoUrl: 'defaultPhotoUrl',
-  userId: 'defaultUserId',
 };
 
 // - Reducer
 export const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case LOGIN_REQUEST:
-    case FETCH_USER_INFO_REQUEST:
-    case LOGOUT_REQUEST:
       return {
         ...state,
         isFetching: true,
@@ -44,6 +37,7 @@ export const reducer = (state = initialState, action = {}) => {
     case LOGIN_SUCCESS:
       return {
         ...state,
+        errorMessage: '',
         isFetching: false,
         isLoggedIn: true,
       };
@@ -53,19 +47,17 @@ export const reducer = (state = initialState, action = {}) => {
         errorMessage: action.payload.message,
         isFetching: false,
       };
-    case FETCH_USER_INFO_SUCCESS:
+    case LOGOUT_REQUEST:
       return {
         ...state,
-        isFetching: false,
-        photoUrl: action.payload.photoUrl,
-        userId: action.payload.userId,
+        isFetching: true,
       };
     case LOGOUT_SUCCESS:
       return {
         ...state,
+        errorMessage: '',
         isFetching: false,
         isLoggedIn: false,
-        userId: null,
       };
     case LOGOUT_FAIL:
       return {
@@ -79,22 +71,6 @@ export const reducer = (state = initialState, action = {}) => {
 };
 
 // - Action Creators
-export const fetchUserInfoRequest = () => ({ type: FETCH_USER_INFO_REQUEST });
-export const fetchUserInfoSuccess = ({
-  photoUrl,
-  userId,
-}) => ({
-  type: FETCH_USER_INFO_SUCCESS,
-  payload: {
-    photoUrl,
-    userId,
-  },
-});
-export const fetchUserInfoFail = ({ message }) => ({
-  type: FETCH_USER_INFO_FAIL,
-  payload: { message },
-});
-
 export const loginRequest = ({
   email,
   password,
@@ -118,11 +94,11 @@ export const logoutFail = ({ message }) => ({
   payload: { message },
 });
 
-// - Api
-export const fetchUserApi = ({ apiParam }) => (
-  axios.get(apiParam)
-);
+// - Selectors
+export const getLoginErrorMessage = state => state.auth.errorMessage;
+export const getLoginButtonSubmittingStatus = state => state.auth.isFetching;
 
+// - Api
 export const loginApi = ({
   accountInfo,
   apiParam,
@@ -135,6 +111,7 @@ export const logoutApi = ({ apiParam }) => (
 );
 
 // - Sagas
+
 export function* login(action) {
   try {
     const {
@@ -165,35 +142,6 @@ export function* login(action) {
   }
 }
 
-export function* fetchUser() {
-  try {
-    const fetchUserRequestData = {
-      apiParam: 'apis/user',
-    };
-    const fetchUserResponse = yield call(fetchUserApi, fetchUserRequestData);
-    const {
-      message,
-      status,
-      user,
-    } = fetchUserResponse.data;
-    const {
-      photo,
-      user_id,
-    } = user;
-
-    if (status !== '200') {
-      throw new Error(message);
-    }
-
-    yield put(fetchUserInfoSuccess({
-      photoUrl: photo,
-      userId: user_id,
-    }));
-  } catch (error) {
-    yield put(fetchUserInfoFail(error));
-  }
-}
-
 export function* logout() {
   try {
     const requestData = {
@@ -201,6 +149,7 @@ export function* logout() {
     };
     yield call(logoutApi, requestData);
     yield put(logoutSuccess());
+    yield put(clearUserInfo());
   } catch (error) {
     yield put(logoutFail(error));
   }
@@ -208,7 +157,6 @@ export function* logout() {
 
 function* watchAuth() {
   yield all([
-    yield takeLatest(FETCH_USER_INFO_REQUEST, fetchUser),
     yield takeLatest(LOGIN_REQUEST, login),
     yield takeLatest(LOGOUT_REQUEST, logout),
   ]);
