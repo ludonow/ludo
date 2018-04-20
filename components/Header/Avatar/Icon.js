@@ -1,11 +1,11 @@
 // @flow
 import React from 'react';
-import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 import withEither from '../../../hoc/withEither';
 
-export const defaultAvatarSrc = '/static/default-avatar.png';
+export const authenticatedUserAvatar = '/static/authenticated-user-avatar.svg';
+export const unAuthenticatedUserAvatar = '/static/unauthenticated-user-avatar.png';
 
 const AvatarIconWrapper = styled.div`
   img {
@@ -13,9 +13,15 @@ const AvatarIconWrapper = styled.div`
   }
 `;
 
-const DefaultAvatarIcon = () => (
+const UnAuthenticatedUserAvatar = () => (
   <AvatarIconWrapper>
-    <img alt="default-avatar" src={defaultAvatarSrc} />
+    <img alt="unauthenticated-user-avatar" src={unAuthenticatedUserAvatar} />
+  </AvatarIconWrapper>
+);
+
+const DefaultAuthenticatedUserAvatar = () => (
+  <AvatarIconWrapper>
+    <img alt="authenticated-user-avatar" src={authenticatedUserAvatar} />
   </AvatarIconWrapper>
 );
 
@@ -23,18 +29,18 @@ type Props = {
   userPhotoUrl: string
 };
 
-const UserPhoto = ({ userPhotoUrl }: Props) => (
+const UserAvatar = ({ userPhotoUrl }: Props) => (
   <AvatarIconWrapper>
     <img alt="user" src={userPhotoUrl} />
   </AvatarIconWrapper>
 );
 
-const hasGotUserPhotoUrl = props => props.userPhotoUrl;
+const isUsingDefaultAvatar = ({ userPhotoUrl }) => (userPhotoUrl === 'default');
+const withPhotoCondition = withEither(isUsingDefaultAvatar, DefaultAuthenticatedUserAvatar);
+const AuthenticatedAvatar = withPhotoCondition(UserAvatar);
 
-export const UnconnectedIcon = withEither(hasGotUserPhotoUrl, UserPhoto)(DefaultAvatarIcon);
+const isAuthenticated = ({ isLoggedIn }) => (isLoggedIn);
+const withAuthenticatedCondition = withEither(isAuthenticated, AuthenticatedAvatar);
+const Icon = withAuthenticatedCondition(UnAuthenticatedUserAvatar);
 
-const mapStateToProps = state => ({
-  userPhotoUrl: state.auth.userPhotoUrl,
-});
-
-export default connect(mapStateToProps)(UnconnectedIcon);
+export default Icon;

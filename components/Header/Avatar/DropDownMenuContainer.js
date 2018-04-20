@@ -1,8 +1,15 @@
 import { connect } from 'react-redux';
 import DropDownMenu from './DropDownMenu';
+import { logoutRequest } from '../../../routes/Login/modules/auth';
 
 const mapStateToProps = state => ({
-  userId: state.auth.userId,
+  isLoggedIn: state.auth.isLoggedIn,
 });
 
-export default connect(mapStateToProps)(DropDownMenu);
+const mapDispatchToProps = dispatch => ({
+  logoutRequestAction: () => {
+    dispatch(logoutRequest());
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DropDownMenu);

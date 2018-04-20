@@ -70,6 +70,9 @@ export const fetchUserInfoFail = ({ message }) => ({
   payload: { message },
 });
 
+// - Selectors
+export const getPhotoUrl = state => state.userInfo.photoUrl;
+
 // - Api
 export const fetchUserApi = ({ apiParam }) => (
   axios.get(apiParam)

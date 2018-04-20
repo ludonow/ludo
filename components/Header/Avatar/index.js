@@ -4,7 +4,7 @@ import ReactDropDownMenu from 'react-dd-menu';
 import styled from 'styled-components';
 
 import DropDownMenuContainer from './DropDownMenuContainer';
-import Icon from './Icon';
+import ConnectedIcon from './IconContainer';
 
 type Props = {};
 
@@ -53,7 +53,7 @@ class Avatar extends Component<Props, State> {
       close: this.close,
       closeOnInsideClick: false,
       isOpen: this.state.isMenuOpen,
-      toggle: <ButtonWrapper onClick={this.toggle}><Icon /></ButtonWrapper>,
+      toggle: <ButtonWrapper onClick={this.toggle}><ConnectedIcon /></ButtonWrapper>,
     };
 
     return (

@@ -96,6 +96,7 @@ export const logoutFail = ({ message }) => ({
 });
 
 // - Selectors
+export const getAuthenticatedStatus = state => state.auth.isLoggedIn;
 export const getLoginErrorMessage = state => state.auth.errorMessage;
 export const getLoginButtonSubmittingStatus = state => state.auth.isFetching;
 

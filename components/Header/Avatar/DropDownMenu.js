@@ -3,11 +3,14 @@ import React from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { translate } from 'react-i18next';
+import withEither from '../../../hoc/withEither';
 
-type Props = {
-  t: Function,
-  userId: string,
-};
+const StyleLessButton = styled.button`
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+`;
 
 const DropDownMenuWrapper = styled.div`
   background-color: white;
@@ -16,6 +19,7 @@ const DropDownMenuWrapper = styled.div`
   padding: 10px 0;
   right: 0;
   top: 100%;
+  z-index: 1;
 
   a {
     color: black;
@@ -34,26 +38,56 @@ const DropDownMenuWrapper = styled.div`
   }
 `;
 
-const DropDownMenu = ({ t, userId }: Props) => (
+type AuthenticatedButtonProps = {
+  logoutRequestAction: Func,
+  t: Func,
+};
+
+const AuthenticatedButton = ({
+  logoutRequestAction,
+  t,
+}: AuthenticatedButtonProps) => (
+  <StyleLessButton onClick={logoutRequestAction}>
+    <li>
+      {t('layout:logout')}
+    </li>
+  </StyleLessButton>
+);
+
+type UnAuthenticatedButtonProps = {
+  t: Func,
+};
+
+const UnAuthenticatedButton = ({ t }: UnAuthenticatedButtonProps) => (
+  <Link href="/login">
+    <a>
+      <li>
+        {t('layout:login')}
+      </li>
+    </a>
+  </Link>
+);
+
+const isLoggedInFn = ({ isLoggedIn }) => (isLoggedIn);
+const AuthButton = withEither(isLoggedInFn, AuthenticatedButton)(UnAuthenticatedButton);
+
+type Props = {
+  logoutRequestAction: Func,
+  isLoggedIn: boolean,
+  t: Func,
+};
+
+const DropDownMenu = ({
+  logoutRequestAction,
+  isLoggedIn,
+  t,
+}: Props) => (
   <DropDownMenuWrapper>
-    {
-      userId === 'defaultUserId' ?
-        <Link href="/login">
-          <a>
-            <li>
-              {t('layout:login')}
-            </li>
-          </a>
-        </Link>
-      :
-        <Link href="/logout">
-          <a>
-            <li>
-              {t('layout:logout')}
-            </li>
-          </a>
-        </Link>
-    }
+    <AuthButton
+      logoutRequestAction={logoutRequestAction}
+      isLoggedIn={isLoggedIn}
+      t={t}
+    />
   </DropDownMenuWrapper>
 );
 
