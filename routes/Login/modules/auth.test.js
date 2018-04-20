@@ -29,12 +29,38 @@ import {
 } from './user';
 import testLogInData from '../../../testLogInData.data';
 
+function getTestAccountInfo() {
+  return {
+    email: testLogInData.email,
+    password: testLogInData.password,
+  };
+}
+
+function getLoginRequestAction() {
+  return {
+    type: LOGIN_REQUEST,
+    payload: getTestAccountInfo(),
+  };
+}
+
+// auth action creator
 describe('auth action creators', () => {
-  it('dispatch login request action', () => {
-    const accountInfo = {
-      email: 'email',
-      password: 'password',
+  it('dispatch login fail action', () => {
+    const error = {
+      message: 'error message',
     };
+    const actual = loginFail(error);
+    const expected = {
+      type: LOGIN_FAIL,
+      payload: {
+        message: error.message,
+      },
+    };
+    expect(actual).toEqual(expected);
+  });
+
+  it('dispatch login request action', () => {
+    const accountInfo = getTestAccountInfo();
     const actual = loginRequest(accountInfo);
     const expected = {
       type: LOGIN_REQUEST,
@@ -51,13 +77,11 @@ describe('auth action creators', () => {
     expect(actual).toEqual(expected);
   });
 
-  it('dispatch login fail action', () => {
-    const error = {
-      message: 'error message',
-    };
-    const actual = loginFail(error);
+  it('dispatch logout fail action', () => {
+    const error = { message: 'error message' };
+    const actual = logoutFail(error);
     const expected = {
-      type: LOGIN_FAIL,
+      type: LOGOUT_FAIL,
       payload: {
         message: error.message,
       },
@@ -76,20 +100,9 @@ describe('auth action creators', () => {
     const expected = { type: LOGOUT_SUCCESS };
     expect(actual).toEqual(expected);
   });
-
-  it('dispatch logout fail action', () => {
-    const error = { message: 'error message' };
-    const actual = logoutFail(error);
-    const expected = {
-      type: LOGOUT_FAIL,
-      payload: {
-        message: error.message,
-      },
-    };
-    expect(actual).toEqual(expected);
-  });
 });
 
+// auth reducer
 describe('auth reducers', () => {
   it('Dispatch no action. Expect initial state', () => {
     const action = {};
@@ -99,9 +112,8 @@ describe('auth reducers', () => {
   });
 
   it('Dispatch login request action. Expect fetching flag being true', () => {
-    const action = {
-      type: LOGIN_REQUEST,
-    };
+    const accountInfo = getTestAccountInfo();
+    const action = loginRequest(accountInfo);
     const actual = reducer(initialState, action);
     const expected = {
       ...initialState,
@@ -115,7 +127,8 @@ describe('auth reducers', () => {
       ...initialState,
       errorMessage: '信箱或密碼錯誤',
     };
-    const actual = reducer(testState, loginSuccess());
+    const action = loginSuccess();
+    const actual = reducer(testState, action);
     const expected = {
       ...initialState,
       errorMessage: '',
@@ -129,7 +142,8 @@ describe('auth reducers', () => {
     const error = {
       message: 'error message',
     };
-    const actual = reducer(initialState, loginFail(error));
+    const action = loginFail(error);
+    const actual = reducer(initialState, action);
     const expected = {
       ...initialState,
       errorMessage: error.message,
@@ -139,9 +153,7 @@ describe('auth reducers', () => {
   });
 
   it('Dispatch logout request action. Expect fetching flag being true', () => {
-    const action = {
-      type: LOGOUT_REQUEST,
-    };
+    const action = logoutRequest();
     const actual = reducer(initialState, action);
     const expected = {
       ...initialState,
@@ -155,7 +167,8 @@ describe('auth reducers', () => {
       ...initialState,
       errorMessage: '取得使用者資料錯誤',
     };
-    const actual = reducer(testState, logoutSuccess());
+    const action = logoutSuccess();
+    const actual = reducer(testState, action);
     const expected = {
       ...initialState,
       errorMessage: '',
@@ -169,7 +182,8 @@ describe('auth reducers', () => {
     const error = {
       message: 'error message',
     };
-    const actual = reducer(initialState, logoutFail(error));
+    const action = logoutFail(error);
+    const actual = reducer(initialState, action);
     const expected = {
       ...initialState,
       errorMessage: error.message,
@@ -179,14 +193,9 @@ describe('auth reducers', () => {
   });
 });
 
+// login saga
 describe('Successful login flow', () => {
-  const action = {
-    type: LOGIN_REQUEST,
-    payload: {
-      email: testLogInData.email,
-      password: testLogInData.password,
-    },
-  };
+  const action = getLoginRequestAction();
   const generator = login(action);
 
   it('Start login request process. Call loginApi with correct account Info', () => {
@@ -204,7 +213,7 @@ describe('Successful login flow', () => {
     expect(actual.done).toEqual(false);
   });
 
-  it('Successfully calling loginApi and receive correct response status. Dispatch login success action', () => {
+  it('Receive correct response status. Dispatch login success action', () => {
     const fakeResponse = {
       data: {
         status: '200',
@@ -231,13 +240,7 @@ describe('Successful login flow', () => {
 });
 
 describe('Login flow when server does not respond', () => {
-  const action = {
-    type: LOGIN_REQUEST,
-    payload: {
-      email: testLogInData.email,
-      password: testLogInData.password,
-    },
-  };
+  const action = getLoginRequestAction();
   const generator = login(action);
 
   it('Start login request process. Call loginApi with correct account Info', () => {
@@ -263,7 +266,7 @@ describe('Login flow when server does not respond', () => {
     expect(actual.done).toEqual(false);
   });
 
-  it('should be done', () => {
+  it('Expect being done', () => {
     const actual = generator.next();
     expect(actual.value).toBeUndefined();
     expect(actual.done).toEqual(true);
@@ -271,13 +274,7 @@ describe('Login flow when server does not respond', () => {
 });
 
 describe('Login flow when user type wrong email or password', () => {
-  const action = {
-    type: LOGIN_REQUEST,
-    payload: {
-      email: testLogInData.email,
-      password: testLogInData.password,
-    },
-  };
+  const action = getLoginRequestAction();
   const generator = login(action);
 
   it('Start login request process. Call loginApi with correct account Info', () => {
@@ -308,13 +305,14 @@ describe('Login flow when user type wrong email or password', () => {
     expect(actual.done).toEqual(false);
   });
 
-  it('should be done', () => {
+  it('Expect being done', () => {
     const actual = generator.next();
     expect(actual.value).toBeUndefined();
     expect(actual.done).toEqual(true);
   });
 });
 
+// logout saga
 describe('Successful logout flow', () => {
   const action = { type: LOGOUT_REQUEST };
   const generator = logout(action);
@@ -349,7 +347,7 @@ describe('Successful logout flow', () => {
     expect(actual.done).toEqual(false);
   });
 
-  it('should be done', () => {
+  it('Expect being done', () => {
     const actual = generator.next();
     expect(actual.value).toBeUndefined();
     expect(actual.done).toEqual(true);
@@ -357,9 +355,7 @@ describe('Successful logout flow', () => {
 });
 
 describe('Logout flow when server does not respond', () => {
-  const action = {
-    type: LOGOUT_REQUEST,
-  };
+  const action = { type: LOGOUT_REQUEST };
   const generator = logout(action);
 
   it('Start logout request process. Call logoutApi', () => {
@@ -375,13 +371,49 @@ describe('Logout flow when server does not respond', () => {
 
   it('Fail to call loginApi. Dispatch logout fail action', () => {
     const errorMessage = 'logout fail';
-    const actual = generator.throw(errorMessage);
-    const expected = put(logoutFail(errorMessage));
+    const actual = generator.throw({ message: errorMessage });
+    const expected = put(logoutFail({ message: errorMessage }));
     expect(actual.value).toEqual(expected);
     expect(actual.done).toEqual(false);
   });
 
-  it('should be done', () => {
+  it('Expect being done', () => {
+    const actual = generator.next();
+    expect(actual.value).toBeUndefined();
+    expect(actual.done).toEqual(true);
+  });
+});
+
+describe('Logout flow when server respond wrong status', () => {
+  const action = { type: LOGOUT_REQUEST };
+  const generator = logout(action);
+
+  it('Start logout request process. Call logoutApi', () => {
+    const actual = generator.next();
+    const requestData = {
+      apiParam: '/logout',
+    };
+    const expected = call(logoutApi, requestData);
+    expect(actual.value).not.toBeUndefined();
+    expect(actual.value).toEqual(expected);
+    expect(actual.done).toEqual(false);
+  });
+
+  it('Fail to call loginApi. Dispatch logout fail action', () => {
+    const errorMessage = 'logout fail';
+    const fakeResponse = {
+      data: {
+        message: errorMessage,
+        status: '400',
+      },
+    };
+    const actual = generator.next(fakeResponse);
+    const expected = put(logoutFail({ message: errorMessage }));
+    expect(actual.value).toEqual(expected);
+    expect(actual.done).toEqual(false);
+  });
+
+  it('Expect being done', () => {
     const actual = generator.next();
     expect(actual.value).toBeUndefined();
     expect(actual.done).toEqual(true);

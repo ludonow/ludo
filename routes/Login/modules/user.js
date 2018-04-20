@@ -78,23 +78,24 @@ export const fetchUserApi = ({ apiParam }) => (
 // - Sagas
 export function* fetchUser() {
   try {
-    const fetchUserRequestData = {
-      apiParam: 'apis/user',
+    const requestInfo = {
+      apiParam: '/apis/user',
     };
-    const fetchUserResponse = yield call(fetchUserApi, fetchUserRequestData);
+    const fetchUserResponse = yield call(fetchUserApi, requestInfo);
     const {
       message,
       status,
       user,
     } = fetchUserResponse.data;
-    const {
-      photo,
-      user_id,
-    } = user;
 
     if (status !== '200') {
       throw new Error(message);
     }
+
+    const {
+      photo,
+      user_id,
+    } = user;
 
     yield put(fetchUserInfoSuccess({
       photoUrl: photo,

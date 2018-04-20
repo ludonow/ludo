@@ -147,7 +147,16 @@ export function* logout() {
     const requestData = {
       apiParam: '/logout',
     };
-    yield call(logoutApi, requestData);
+    const logoutResponse = yield call(logoutApi, requestData);
+    const {
+      message,
+      status,
+    } = logoutResponse.data;
+
+    if (status !== '200') {
+      throw new Error(message);
+    }
+
     yield put(logoutSuccess());
     yield put(clearUserInfo());
   } catch (error) {
