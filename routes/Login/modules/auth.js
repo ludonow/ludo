@@ -5,6 +5,7 @@ import {
   takeLatest,
 } from 'redux-saga/effects';
 import md5 from 'blueimp-md5';
+import Router from 'next/router';
 import axios from '../../../axios-config';
 import {
   clearUserInfo,
@@ -107,11 +108,14 @@ export const loginApi = ({
 );
 
 export const logoutApi = ({ apiParam }) => (
-  axios.post(apiParam)
+  axios.get(apiParam)
 );
 
-// - Sagas
+export const routeToIndex = () => {
+  Router.push('/');
+};
 
+// - Sagas
 export function* login(action) {
   try {
     const {
@@ -137,6 +141,7 @@ export function* login(action) {
 
     yield put(loginSuccess());
     yield put(fetchUserInfoRequest());
+    yield call(routeToIndex);
   } catch (error) {
     yield put(loginFail(error));
   }

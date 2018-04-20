@@ -22,6 +22,7 @@ import {
   logoutRequest,
   logoutSuccess,
   reducer,
+  routeToIndex,
 } from './auth';
 import {
   clearUserInfo,
@@ -213,7 +214,7 @@ describe('Successful login flow', () => {
     expect(actual.done).toEqual(false);
   });
 
-  it('Receive correct response status. Dispatch login success action', () => {
+  it('Receive correct response status. Expect to dispatch login success action', () => {
     const fakeResponse = {
       data: {
         status: '200',
@@ -225,9 +226,16 @@ describe('Successful login flow', () => {
     expect(actual.done).toEqual(false);
   });
 
-  it('After dispatching login success action. Dispatch fetch user info action', () => {
+  it('After dispatching login success action. Expect to dispatch fetch user info action', () => {
     const actual = generator.next();
     const expected = put(fetchUserInfoRequest());
+    expect(actual.value).toEqual(expected);
+    expect(actual.done).toEqual(false);
+  });
+
+  it('After dispatching fetch user info action. Expect call router to index', () => {
+    const actual = generator.next();
+    const expected = call(routeToIndex);
     expect(actual.value).toEqual(expected);
     expect(actual.done).toEqual(false);
   });
