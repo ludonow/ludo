@@ -2,8 +2,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import withEither from '../../hoc/withEither';
-import Button from './Button';
 import Menu from './Menu';
 
 type Props = {};
@@ -21,9 +19,6 @@ const SidebarWrapper = styled.aside`
   right: 0;
 `;
 
-const conditionalRenderingFn = props => props.isMenuOpen;
-const RenderedSidebar = withEither(conditionalRenderingFn, Menu)(Button);
-
 class Sidebar extends Component<Props, State> {
   constructor() {
     super();
@@ -38,10 +33,12 @@ class Sidebar extends Component<Props, State> {
   }
 
   render() {
+    const { t } = this.props;
     return (
       <SidebarWrapper>
         <Menu
           isMenuOpen={this.state.isMenuOpen}
+          t={t}
           toggle={this.toggle}
         />
       </SidebarWrapper>

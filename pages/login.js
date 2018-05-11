@@ -4,12 +4,12 @@ import { I18nextProvider } from 'react-i18next';
 import startI18n from '../tools/startI18n';
 import { getTranslation } from '../tools/translationHelpers';
 import configureStore from '../store/createStore';
-import withApp from '../hoc/withApp';
+import withLayout from '../hocs/withLayout';
 import Login from '../routes/Login';
 
 const lang = 'zh_tw';
 
-const LoginPage = withApp(Login);
+const LoginPage = withLayout(Login);
 
 class LoginWithi18n extends Component {
   static async getInitialProps() {

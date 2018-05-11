@@ -14,7 +14,7 @@ const MenuWrapper = styled.div`
   li {
     border: 2px transparent solid;
     cursor: pointer;
-    font-family:  Microsoft JhengHei;
+    font-family: "Microsoft JhengHei";
     font-size: 0.9rem;
     font-weight: bold;
     margin: 5vh 0;

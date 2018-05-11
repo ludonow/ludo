@@ -3,14 +3,6 @@ import React from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { translate } from 'react-i18next';
-import withEither from '../../../hoc/withEither';
-
-const StyleLessButton = styled.button`
-  background-color: white;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-`;
 
 const DropDownMenuWrapper = styled.div`
   background-color: white;
@@ -38,56 +30,40 @@ const DropDownMenuWrapper = styled.div`
   }
 `;
 
-type AuthenticatedButtonProps = {
-  logoutRequestAction: Func,
-  t: Func,
-};
+const menuList = [
+  { href: '/auth/sign-in', text: 'layout:login', anonymousOnly: true },
+  { href: '/auth/sign-off', text: 'layout:logout', authRequired: true }
+];
 
-const AuthenticatedButton = ({
-  logoutRequestAction,
-  t,
-}: AuthenticatedButtonProps) => (
-  <StyleLessButton onClick={logoutRequestAction}>
-    <li>
-      {t('layout:logout')}
-    </li>
-  </StyleLessButton>
-);
+function getAllowedMenu(isAuthenticated) {
+  if (!isAuthenticated) {
+    return menuList.filter(list => !list.authRequired);
+  }
 
-type UnAuthenticatedButtonProps = {
-  t: Func,
-};
-
-const UnAuthenticatedButton = ({ t }: UnAuthenticatedButtonProps) => (
-  <Link href="/login">
-    <a>
-      <li>
-        {t('layout:login')}
-      </li>
-    </a>
-  </Link>
-);
-
-const isLoggedInFn = ({ isLoggedIn }) => (isLoggedIn);
-const AuthButton = withEither(isLoggedInFn, AuthenticatedButton)(UnAuthenticatedButton);
+  return menuList.filter(list => !list.anonymousOnly);
+}
 
 type Props = {
-  logoutRequestAction: Func,
-  isLoggedIn: boolean,
+  isAuthenticated: boolean,
   t: Func,
 };
 
 const DropDownMenu = ({
-  logoutRequestAction,
-  isLoggedIn,
+  isAuthenticated,
   t,
 }: Props) => (
   <DropDownMenuWrapper>
-    <AuthButton
-      logoutRequestAction={logoutRequestAction}
-      isLoggedIn={isLoggedIn}
-      t={t}
-    />
+    {
+      getAllowedMenu(isAuthenticated).map(list => (
+        <Link href={list.href}>
+          <a>
+            <li>
+              {t(list.text)}
+            </li>
+          </a>
+        </Link>
+      ))
+    }
   </DropDownMenuWrapper>
 );
 

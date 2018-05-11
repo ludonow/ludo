@@ -3,7 +3,7 @@ import DropDownMenu from './DropDownMenu';
 import { logoutRequest } from '../../../routes/Login/modules/auth';
 
 const mapStateToProps = state => ({
-  isLoggedIn: state.auth.isLoggedIn,
+  isAuthenticated: state.auth.isLoggedIn,
 });
 
 const mapDispatchToProps = dispatch => ({

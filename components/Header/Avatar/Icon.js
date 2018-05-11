@@ -2,7 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import withEither from '../../../hoc/withEither';
+import withEither from '../../../hocs/withEither';
 
 export const authenticatedUserAvatar = '/static/authenticated-user-avatar.svg';
 export const unAuthenticatedUserAvatar = '/static/unauthenticated-user-avatar.png';
