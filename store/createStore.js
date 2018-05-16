@@ -9,12 +9,10 @@ import { all } from 'redux-saga/effects';
 import { reducer as formReducer } from 'redux-form';
 import watchAuth, { reducer as authReducer } from '../routes/Login/modules/auth';
 import watchFetchUserInfo, { reducer as fetchUserInfoReducer } from '../routes/Login/modules/user';
-import * as language from './module/language';
 
 const rootReducer = combineReducers({
   auth: authReducer,
   form: formReducer,
-  multiLanguage: language.reducer,
   userInfo: fetchUserInfoReducer,
 });
 

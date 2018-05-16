@@ -54,8 +54,11 @@ const DropDownMenu = ({
 }: Props) => (
   <DropDownMenuWrapper>
     {
-      getAllowedMenu(isAuthenticated).map(list => (
-        <Link href={list.href}>
+      getAllowedMenu(isAuthenticated).map((list, index) => (
+        <Link
+          href={list.href}
+          key={`header-menu-${index}`}
+        >
           <a>
             <li>
               {t(list.text)}

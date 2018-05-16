@@ -4,15 +4,12 @@ const LanguageDetector = require('i18next-browser-languagedetector');
 
 const options = {
   fallbackLng: 'en',
-  load: 'languageOnly', // we only provide en, de -> no region specific locals like en-US, de-DE
-
+  load: 'unspecific', // we only provide en, de -> no region specific locals like en-US, de-DE
   // have a common namespace used around the full app
-  ns: ['common'],
-  defaultNS: 'common',
-
+  ns: ['layout'],
+  defaultNS: 'layout',
   debug: process.env.NODE_ENV !== 'production',
   saveMissing: true,
-
   interpolation: {
     escapeValue: false, // not needed for react!!
     formatSeparator: ',',
@@ -34,7 +31,7 @@ if (process.browser) {
 }
 
 // initialize if not already initialized
-if (!i18nInstance.isInitialized) i18nInstance.init(options)
+if (!i18nInstance.isInitialized) i18nInstance.init(options);
 
 // a simple helper to getInitialProps passed on loaded i18n data
 const getInitialProps = (req, namespaces) => {

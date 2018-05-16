@@ -1,12 +1,15 @@
 import React from 'react';
 import Router from 'next/router';
+import withRedux from 'next-redux-wrapper';
+import configureStore from '../../store/createStore';
+import withLayout from '../../hocs/withLayout';
 import {
   checkSecret,
   extractInfoFromHash,
   setToken,
 } from '../../utils/auth';
 
-export default class SignedIn extends React.Component {
+class SignedIn extends React.Component {
   componentDidMount() {
     const {
       secret,
@@ -23,3 +26,7 @@ export default class SignedIn extends React.Component {
     return null;
   }
 }
+
+const SignedInPage = withLayout(SignedIn);
+
+export default withRedux(configureStore)(SignedInPage);

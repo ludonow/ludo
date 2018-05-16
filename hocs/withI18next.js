@@ -7,7 +7,7 @@ import {
   I18n,
 } from '../tools/i18n';
 
-const withI18next = (namespaces = ['common']) => (ComposedComponent) => {
+const withI18next = (namespaces = ['layout']) => (ComposedComponent) => {
   const Extended = translate(
     namespaces,
     {

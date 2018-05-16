@@ -17,8 +17,8 @@ i18nInstance
   .use(i18nextMiddleware.LanguageDetector)
   .init({
     fallbackLng: 'en',
-    preload: ['en', 'zh-TW'], // preload all langages
-    ns: ['common', 'layout'], // need to preload all the namespaces
+    preload: ['zh-TW', 'zh-CN'], // preload all langages
+    ns: ['layout'], // need to preload all the namespaces
     backend: {
       loadPath: path.join(__dirname, '/static/locales/{{lng}}/{{ns}}.json'),
     },
