@@ -17,7 +17,7 @@ i18nInstance
   .use(i18nextMiddleware.LanguageDetector)
   .init({
     fallbackLng: 'en',
-    preload: ['en', 'zh-tw'], // preload all langages
+    preload: ['en', 'zh-TW'], // preload all langages
     ns: ['common', 'layout'], // need to preload all the namespaces
     backend: {
       loadPath: path.join(__dirname, '/static/locales/{{lng}}/{{ns}}.json'),
@@ -40,9 +40,9 @@ i18nInstance
         // use next.js
         server.get('*', (req, res) => handle(req, res));
 
-        server.listen(8080, (err) => {
+        server.listen(3000, (err) => {
           if (err) throw err;
-          console.log('> Ready on http://localhost:8080');
+          console.log('> Ready on http://localhost:3000');
         });
       });
   });

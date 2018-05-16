@@ -9,6 +9,7 @@ import {
   getUserFromServerCookie,
 } from '../utils/auth';
 import withI18next from '../hocs/withI18next';
+import { loginSuccess } from '../routes/Login/modules/auth';
 
 const MainWrapper = styled.main`
   background-color: #ffc645;
@@ -20,11 +21,15 @@ function withLayout(Page) {
     static getInitialProps(ctx) {
       const loggedUser = process.browser ? getUserFromLocalCookie() : getUserFromServerCookie(ctx.req);
       const pageProps = Page.getInitialProps && Page.getInitialProps(ctx);
+
+      if (loggedUser) {
+        ctx.store.dispatch(loginSuccess());
+      }
+
       return {
         ...pageProps,
         loggedUser,
         currentUrl: ctx.pathname,
-        isAuthenticated: !!loggedUser,
       };
     }
 

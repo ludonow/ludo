@@ -7,7 +7,7 @@ import configureStore from '../store/createStore';
 import withLayout from '../hocs/withLayout';
 import Login from '../routes/Login';
 
-const lang = 'zh_tw';
+const lang = 'zh-TW';
 
 const LoginPage = withLayout(Login);
 
@@ -16,7 +16,7 @@ class LoginWithi18n extends Component {
     const translations = await getTranslation(
       lang,
       ['layout'],
-      'http://localhost:8080/static/locales/',
+      'http://localhost:3000/static/locales/',
     );
 
     return { translations };
