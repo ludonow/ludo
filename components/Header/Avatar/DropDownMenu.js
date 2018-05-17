@@ -32,7 +32,7 @@ const DropDownMenuWrapper = styled.div`
 
 const menuList = [
   { href: '/auth/sign-in', text: 'layout:login', anonymousOnly: true },
-  { href: '/auth/sign-off', text: 'layout:logout', authRequired: true }
+  { href: '/auth/sign-off', text: 'layout:logout', authRequired: true },
 ];
 
 function getAllowedMenu(isAuthenticated) {

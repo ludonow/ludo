@@ -10,7 +10,7 @@ type State = {
   isMenuOpen: boolean
 };
 
-const SidebarWrapper = styled.aside`
+const NavbarWrapper = styled.aside`
   align-items: center;
   display: flex;
   height: 100vh;
@@ -19,7 +19,7 @@ const SidebarWrapper = styled.aside`
   right: 0;
 `;
 
-class Sidebar extends Component<Props, State> {
+class Navbar extends Component<Props, State> {
   constructor() {
     super();
     this.state = {
@@ -35,15 +35,15 @@ class Sidebar extends Component<Props, State> {
   render() {
     const { t } = this.props;
     return (
-      <SidebarWrapper>
+      <NavbarWrapper>
         <Menu
           isMenuOpen={this.state.isMenuOpen}
           t={t}
           toggle={this.toggle}
         />
-      </SidebarWrapper>
+      </NavbarWrapper>
     );
   }
 }
 
-export default Sidebar;
+export default Navbar;

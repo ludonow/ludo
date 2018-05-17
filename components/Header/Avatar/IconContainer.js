@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Icon from './Icon';
-import { getAuthenticatedStatus } from '../../../routes/Login/modules/auth';
-import { getPhotoUrl } from '../../../routes/Login/modules/user';
+import { getAuthenticatedStatus } from '../../../routes/Auth/modules/auth';
+import { getPhotoUrl } from '../../../routes/Auth/modules/user';
 
 const mapStateToProps = state => ({
   isLoggedIn: getAuthenticatedStatus(state),

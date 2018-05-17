@@ -6,6 +6,16 @@ module.exports = {
       delete config.resolve.alias['react-dom'];
     }
 
+    config.module.rules.push({
+      test: /\.(png|jpg|gif)$/,
+      use: [
+        {
+          loader: 'file-loader',
+          options: {},
+        },
+      ],
+    });
+
     return config;
-  }
+  },
 };

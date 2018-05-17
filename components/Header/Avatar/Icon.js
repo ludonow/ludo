@@ -1,15 +1,13 @@
 // @flow
 import React from 'react';
 import styled from 'styled-components';
-
 import withEither from '../../../hocs/withEither';
-
-export const authenticatedUserAvatar = '/static/authenticated-user-avatar.svg';
-export const unAuthenticatedUserAvatar = '/static/unauthenticated-user-avatar.png';
+import authenticatedUserAvatar from '../../../static/authenticated-user-avatar.svg';
+import unAuthenticatedUserAvatar from '../../../static/unauthenticated-user-avatar.png';
 
 const AvatarIconWrapper = styled.div`
   img {
-    height: 5vh;
+    height: 24px;
   }
 `;
 

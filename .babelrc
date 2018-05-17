@@ -1,6 +1,14 @@
 {
   "plugins": [
-    [ "styled-components", { "ssr": true, "displayName": true, "preprocess": false } ],
+    "inline-react-svg",
+    [
+      "styled-components",
+      {
+        "ssr": true,
+        "displayName": true,
+        "preprocess": false
+      }
+    ],
     "transform-flow-strip-types"
   ],
   "presets": [

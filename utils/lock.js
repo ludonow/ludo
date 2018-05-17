@@ -23,6 +23,7 @@ const getOptions = (container) => {
         state: secret,
       },
     },
+    language: navigator.language || navigator.userLanguage,
   };
 };
 

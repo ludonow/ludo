@@ -13,6 +13,7 @@ export const FETCH_USER_INFO_FAIL = 'FETCH_USER_INFO_FAIL';
 
 // - State
 export const initialState = {
+  email: '',
   errorMessage: '',
   isFetching: false,
   photoUrl: null,
@@ -36,10 +37,10 @@ export const reducer = (state = initialState, action = {}) => {
     case FETCH_USER_INFO_SUCCESS:
       return {
         ...state,
+        email: action.payload.email,
         errorMessage: '',
         isFetching: false,
         photoUrl: action.payload.photoUrl,
-        userId: action.payload.userId,
       };
     case FETCH_USER_INFO_FAIL:
       return {
@@ -56,13 +57,13 @@ export const reducer = (state = initialState, action = {}) => {
 export const clearUserInfo = () => ({ type: CLEAR_USER_INFO });
 export const fetchUserInfoRequest = () => ({ type: FETCH_USER_INFO_REQUEST });
 export const fetchUserInfoSuccess = ({
-  photoUrl,
-  userId,
+  email,
+  picture,
 }) => ({
   type: FETCH_USER_INFO_SUCCESS,
   payload: {
-    photoUrl,
-    userId,
+    email,
+    photoUrl: picture,
   },
 });
 export const fetchUserInfoFail = ({ message }) => ({

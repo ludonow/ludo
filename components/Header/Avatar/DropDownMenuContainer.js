@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import DropDownMenu from './DropDownMenu';
-import { logoutRequest } from '../../../routes/Login/modules/auth';
+import { logoutRequest } from '../../../routes/Auth/modules/auth';
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isLoggedIn,

@@ -7,8 +7,8 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 import { all } from 'redux-saga/effects';
 import { reducer as formReducer } from 'redux-form';
-import watchAuth, { reducer as authReducer } from '../routes/Login/modules/auth';
-import watchFetchUserInfo, { reducer as fetchUserInfoReducer } from '../routes/Login/modules/user';
+import watchAuth, { reducer as authReducer } from '../routes/Auth/modules/auth';
+import watchFetchUserInfo, { reducer as fetchUserInfoReducer } from '../routes/Auth/modules/user';
 
 const rootReducer = combineReducers({
   auth: authReducer,
