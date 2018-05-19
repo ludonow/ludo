@@ -6,19 +6,17 @@ import {
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 import { all } from 'redux-saga/effects';
-import { reducer as formReducer } from 'redux-form';
 import watchAuth, { reducer as authReducer } from '../routes/Auth/modules/auth';
 import watchFetchUserInfo, { reducer as fetchUserInfoReducer } from '../routes/Auth/modules/user';
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  form: formReducer,
   userInfo: fetchUserInfoReducer,
 });
 
-const sagaMiddleware = createSagaMiddleware();
+export const sagaMiddleware = createSagaMiddleware();
 
-function* rootSaga() {
+export function* rootSaga() {
   yield all([
     watchAuth(),
     watchFetchUserInfo(),
@@ -32,7 +30,20 @@ const configureStore = (initialState = {}) => {
     composeWithDevTools(applyMiddleware(sagaMiddleware)),
   );
 
-  sagaMiddleware.run(rootSaga);
+  /**
+   * next-redux-saga depends on `runSagaTask` and `sagaTask` being attached to the store.
+   *
+   *   `runSagaTask` is used to rerun the rootSaga on the client when in sync mode (default)
+   *   `sagaTask` is used to await the rootSaga task before sending results to the client
+   *
+   */
+
+  store.runSagaTask = () => {
+    store.sagaTask = sagaMiddleware.run(rootSaga);
+  };
+
+  // run the rootSaga initially
+  store.runSagaTask();
   return store;
 };
 

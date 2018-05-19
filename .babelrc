@@ -12,8 +12,8 @@
     "transform-flow-strip-types"
   ],
   "presets": [
-    "es2015",
     "next/babel",
+    "es2015",
     "react"
   ]
 }

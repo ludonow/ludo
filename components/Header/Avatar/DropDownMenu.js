@@ -31,8 +31,8 @@ const DropDownMenuWrapper = styled.div`
 `;
 
 const menuList = [
-  { href: '/auth/sign-in', text: 'layout:login', anonymousOnly: true },
-  { href: '/auth/sign-off', text: 'layout:logout', authRequired: true },
+  { href: 'https://api.ludonow.com/auth0-login', text: 'layout:login', anonymousOnly: true },
+  { href: 'https://ludo.auth0.com/v2/logout?returnTo=https://api.ludonow.com/logout', text: 'layout:logout', authRequired: true },
 ];
 
 function getAllowedMenu(isAuthenticated) {

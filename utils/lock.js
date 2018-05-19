@@ -17,7 +17,8 @@ const getOptions = (container) => {
     closable: false,
     auth: {
       responseType: 'token id_token',
-      redirectUrl: `${getBaseUrl()}/auth/signed-in`,
+      // redirectUrl: `https://api.ludonow.com/auth0-callback?redirect=${window.location.pathname.substring(1)}`,
+      redirectUrl: 'https://api.ludonow.com/auth0-callback',
       params: {
         scope: 'openid profile email',
         state: secret,

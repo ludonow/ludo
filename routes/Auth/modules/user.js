@@ -4,6 +4,7 @@ import {
   takeLatest,
 } from 'redux-saga/effects';
 import axios from '../../../axios-config';
+import { loginSuccess } from './auth';
 
 // - Actions
 export const CLEAR_USER_INFO = 'CLEAR_USER_INFO';
@@ -41,6 +42,7 @@ export const reducer = (state = initialState, action = {}) => {
         errorMessage: '',
         isFetching: false,
         photoUrl: action.payload.photoUrl,
+        userId: action.payload.userId,
       };
     case FETCH_USER_INFO_FAIL:
       return {
@@ -58,12 +60,14 @@ export const clearUserInfo = () => ({ type: CLEAR_USER_INFO });
 export const fetchUserInfoRequest = () => ({ type: FETCH_USER_INFO_REQUEST });
 export const fetchUserInfoSuccess = ({
   email,
-  picture,
+  photoUrl,
+  userId,
 }) => ({
   type: FETCH_USER_INFO_SUCCESS,
   payload: {
     email,
-    photoUrl: picture,
+    photoUrl,
+    userId,
   },
 });
 export const fetchUserInfoFail = ({ message }) => ({
@@ -73,6 +77,7 @@ export const fetchUserInfoFail = ({ message }) => ({
 
 // - Selectors
 export const getPhotoUrl = state => state.userInfo.photoUrl;
+export const getUserId = state => state.userInfo.userId;
 
 // - Api
 export const fetchUserApi = ({ apiParam }) => (
@@ -97,14 +102,17 @@ export function* fetchUser() {
     }
 
     const {
+      email,
       photo,
       user_id,
     } = user;
 
     yield put(fetchUserInfoSuccess({
+      email,
       photoUrl: photo,
       userId: user_id,
     }));
+    yield put(loginSuccess());
   } catch (error) {
     yield put(fetchUserInfoFail(error));
   }
