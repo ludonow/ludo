@@ -1,15 +1,19 @@
 // @flow
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import ReactDropDownMenu from 'react-dd-menu';
 import styled from 'styled-components';
 
 import DropDownMenuContainer from './DropDownMenuContainer';
 import ConnectedIcon from './IconContainer';
+import { fetchUserInfoRequest } from '../../../routes/Auth/modules/user';
 
-type Props = {};
+type Props = {
+  dispatch: Func,
+};
 
 type State = {
-  isMenuOpen: boolean
+  isMenuOpen: boolean,
 };
 
 const AvatarWrapper = styled.div`
@@ -39,6 +43,10 @@ class Avatar extends Component<Props, State> {
     this.toggle = this.toggle.bind(this);
   }
 
+  componentDidMount() {
+    this.props.dispatch(fetchUserInfoRequest());
+  }
+
   close() {
     this.setState({ isMenuOpen: false });
   }
@@ -66,4 +74,4 @@ class Avatar extends Component<Props, State> {
   }
 }
 
-export default Avatar;
+export default connect()(Avatar);
