@@ -1,11 +1,20 @@
 {
+  "bind messenger bot": "接收即時通知",
+  "contact us": "提供意見",
   "data": "個人數據",
+  "ended cards": "已經結束",
   "login": "登入",
   "logout": "登出",
+  "my templates": "我的模板",
+  "new game": "開啟新局",
+  "personal data": "個人數據",
   "playground": "遊戲廣場",
+  "playing cards": "正在遊戲",
+  "ready cards": "等待加入",
   "reward": "領取獎勵",
   "setting": "帳號設定",
   "shop": "商城",
   "subscription": "我的訂閱",
-  "template": "模板系統"
+  "templates": "看看範例",
+  "tutorial": "使用教學"
 }

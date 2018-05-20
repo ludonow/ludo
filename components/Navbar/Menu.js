@@ -2,54 +2,53 @@
 import React from 'react';
 import styled from 'styled-components';
 import { translate } from 'react-i18next';
+import Link from 'next/link';
+import { StyledAnchor } from '../../baseStyle';
 
-type Props = {
-  t: Function,
-  toggle: Function,
-}
+const selectedStyle = 'background-color: black; border: 1px white solid; border-radius: 1rem;';
 
-const MenuWrapper = styled.div`
-  color: white;
-
-  li {
-    border: 2px transparent solid;
-    cursor: pointer;
-    font-family: "Microsoft JhengHei";
-    font-size: 0.9rem;
-    font-weight: bold;
-    margin: 5vh 0;
-    padding: 0.4rem 1rem;
-    text-align: center;
-
-    &:hover {
-      border: 2px white solid;
-      border-radius: 1rem;
-    }
-
-    &:active {
-      background-color: black;
-    }
+const ListItem = styled.li`
+  border: 1px transparent solid;
+  cursor: pointer;
+  margin: 15px 0;
+  padding: 2px 0;
+  ${props => props.selected ? selectedStyle : ''}
+  &:active {
+    background-color: black;
+  }
+  &:hover {
+    border: 1px white solid;
+    border-radius: 1rem;
   }
 `;
 
+type Props = {
+  groupIndex: number,
+  menuList: array,
+  t: Function,
+};
+
 const Menu = ({
+  groupIndex,
+  menuList,
   t,
-  toggle,
 }: Props) => (
-  <MenuWrapper
-    onBlur={toggle}
-    onMouseOut={toggle}
-  >
-    <ul>
-      <li>{t('playground')}</li>
-      <li>{t('template')}</li>
-      <li>{t('reward')}</li>
-      <li>{t('subscription')}</li>
-      <li>{t('shop')}</li>
-      <li>{t('data')}</li>
-      <li>{t('setting')}</li>
-    </ul>
-  </MenuWrapper>
+  <div>
+    {
+      menuList.map((item, itemIndex) => (
+        <Link
+          href={item.url}
+          passHref
+        >
+          <StyledAnchor>
+            <ListItem key={`navbar-menu-${groupIndex}-${itemIndex}`}>
+              {t(item.label)}
+            </ListItem>
+          </StyledAnchor>
+        </Link>
+      ))
+    }
+  </div>
 );
 
 export default translate(['layout'])(Menu);

@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Avatar from './Avatar';
-import HamburgerIcon from './HamburgerIcon';
-import Logo from './Logo';
+import HeaderLeft from './HeaderLeft';
 
 const HeaderWrapper = styled.div`
   align-items: center;
@@ -14,8 +13,7 @@ const HeaderWrapper = styled.div`
 
 const Header = () => (
   <HeaderWrapper>
-    <HamburgerIcon />
-    <Logo />
+    <HeaderLeft />
     <Avatar />
   </HeaderWrapper>
 );

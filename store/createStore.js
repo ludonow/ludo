@@ -8,9 +8,13 @@ import createSagaMiddleware from 'redux-saga';
 import { all } from 'redux-saga/effects';
 import watchAuth, { reducer as authReducer } from '../routes/Auth/modules/auth';
 import watchFetchUserInfo, { reducer as fetchUserInfoReducer } from '../routes/Auth/modules/user';
+import { reducer as navbarReducer } from '../routes/UI/modules/navbar';
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  ui: combineReducers({
+    navbar: navbarReducer,
+  }),
   userInfo: fetchUserInfoReducer,
 });
 
