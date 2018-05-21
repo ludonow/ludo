@@ -39,9 +39,10 @@ const Menu = ({
         <Link
           href={item.url}
           passHref
+          key={`navbar-menu-${groupIndex}-${itemIndex}`}
         >
           <StyledAnchor>
-            <ListItem key={`navbar-menu-${groupIndex}-${itemIndex}`}>
+            <ListItem>
               {t(item.label)}
             </ListItem>
           </StyledAnchor>

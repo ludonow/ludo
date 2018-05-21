@@ -115,7 +115,7 @@ const Navbar = ({
       <HeaderLeft />
       {
         groupListOfMenuList.map((menuList, groupIndex) => (
-          <GroupWrapper>
+          <GroupWrapper key={`navbar-group-${groupIndex}`} >
             <GroupTitle groupIndex={groupIndex} />
             <Menu
               groupIndex={groupIndex}

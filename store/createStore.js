@@ -8,6 +8,7 @@ import createSagaMiddleware from 'redux-saga';
 import { all } from 'redux-saga/effects';
 import watchAuth, { reducer as authReducer } from '../routes/Auth/modules/auth';
 import watchFetchUserInfo, { reducer as fetchUserInfoReducer } from '../routes/Auth/modules/user';
+import watchTemplateList, { reducer as templateListReducer } from '../routes/Statistic/modules/templateList';
 import { reducer as navbarReducer } from '../routes/UI/modules/navbar';
 
 const rootReducer = combineReducers({
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
     navbar: navbarReducer,
   }),
   userInfo: fetchUserInfoReducer,
+  templateList: templateListReducer,
 });
 
 export const sagaMiddleware = createSagaMiddleware();
@@ -24,6 +26,7 @@ export function* rootSaga() {
   yield all([
     watchAuth(),
     watchFetchUserInfo(),
+    watchTemplateList(),
   ]);
 }
 
