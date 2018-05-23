@@ -7,17 +7,23 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 import { all } from 'redux-saga/effects';
 import watchAuth, { reducer as authReducer } from '../routes/Auth/modules/auth';
+import watchFetchLudoListOfSingleTemplate, { reducer as ludoListOfSingleTemplateReducer } from '../routes/Statistic/modules/ludoList';
+import watchFetchSingleTemplate, { reducer as singleTemplateReducer } from '../routes/Statistic/modules/singleTemplate';
+import watchFetchStatisticInfoOfSingleTemplate, { reducer as statisticInfoListOfSingleTemplateReducer } from '../routes/Statistic/modules/statisticInfo';
 import watchFetchUserInfo, { reducer as fetchUserInfoReducer } from '../routes/Auth/modules/user';
-import watchTemplateList, { reducer as templateListReducer } from '../routes/Statistic/modules/templateList';
+import watchTemplateList, { reducer as templateListReducer } from '../routes/Group/modules/myTemplateList';
 import { reducer as navbarReducer } from '../routes/UI/modules/navbar';
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  ludoListOfSingleTemplate: ludoListOfSingleTemplateReducer,
+  singleTemplate: singleTemplateReducer,
+  statisticInfoListOfSingleTemplate: statisticInfoListOfSingleTemplateReducer,
+  templateList: templateListReducer,
   ui: combineReducers({
     navbar: navbarReducer,
   }),
   userInfo: fetchUserInfoReducer,
-  templateList: templateListReducer,
 });
 
 export const sagaMiddleware = createSagaMiddleware();
@@ -25,7 +31,10 @@ export const sagaMiddleware = createSagaMiddleware();
 export function* rootSaga() {
   yield all([
     watchAuth(),
+    watchFetchLudoListOfSingleTemplate(),
     watchFetchUserInfo(),
+    watchFetchSingleTemplate(),
+    watchFetchStatisticInfoOfSingleTemplate(),
     watchTemplateList(),
   ]);
 }

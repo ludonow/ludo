@@ -5,7 +5,7 @@ import {
   select,
   takeLatest,
 } from 'redux-saga/effects';
-import axios from '../../../axios-config';
+import { getWithQuery } from '../../../tools/api';
 import { getUserId } from '../../Auth/modules/user';
 
 // - Actions
@@ -60,32 +60,25 @@ export const fetchTemplateListFail = ({ message }) => ({
 // - Selectors
 export const getTemplateList = state => state.templateList.list;
 
-// - Api
-export const fetchTemplateListApi = ({ apiParam }) => (
-  axios.get(apiParam)
-);
-
 // - Sagas
 export function* fetchTemplateList() {
   try {
     const userId = yield select(getUserId);
-    const requestData = {
-      apiParam: `/apis/ludo?stage=0&user_id=${userId}`,
-    };
-    const ludoListResponse = yield call(fetchTemplateListApi, requestData);
+    const query = `/apis/ludo?stage=0&user_id=${userId}`;
+    const ludoListResponse = yield call(getWithQuery, query);
     const {
       message,
       status,
       ludoList,
     } = ludoListResponse.data;
 
-    const ludoListItems = ludoList.Items;
+    const templateList = ludoList.Items;
 
     if (status !== '200') {
       throw new Error(message);
     }
 
-    yield put(fetchTemplateListSuccess({ list: ludoListItems }));
+    yield put(fetchTemplateListSuccess({ list: templateList }));
   } catch (error) {
     yield put(fetchTemplateListFail(error));
   }

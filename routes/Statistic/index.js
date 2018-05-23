@@ -1,3 +1,10 @@
-import TemplateListContainer from './components/TemplateListContainer';
+import React from 'react';
+import TemplateTitleContainer from './components/TemplateTitleContainer';
 
-export default TemplateListContainer;
+const Statistic = () => (
+  <div>
+    <TemplateTitleContainer />
+  </div>
+);
+
+export default Statistic;

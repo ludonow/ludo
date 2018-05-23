@@ -14,7 +14,7 @@ type Props = {
   templateInfo: object,
 };
 
-class TemplateTitle extends Component<Props> {
+class StatisticInfo extends Component<Props> {
   componentDidMount() {
     const { fetchSingleTemplateRequestAction } = this.props;
     const viewingTemplateId = window.location.search.split('templateId=')[1];
@@ -31,4 +31,4 @@ class TemplateTitle extends Component<Props> {
   }
 }
 
-export default TemplateTitle;
+export default StatisticInfo;

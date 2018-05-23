@@ -5,7 +5,7 @@ import {
 } from 'redux-saga/effects';
 import axios from '../../../axios-config';
 import { loginSuccess } from './auth';
-import { fetchTemplateListRequest } from '../../Statistic/modules/templateList';
+import { fetchTemplateListRequest } from '../../Group/modules/myTemplateList';
 
 // - Actions
 export const CLEAR_USER_INFO = 'CLEAR_USER_INFO';
@@ -114,7 +114,7 @@ export function* fetchUser() {
       userId: user_id,
     }));
     yield put(loginSuccess());
-    yield put(fetchTemplateListRequest());
+    // yield put(fetchTemplateListRequest());
   } catch (error) {
     yield put(fetchUserInfoFail(error));
   }
