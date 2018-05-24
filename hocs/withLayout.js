@@ -9,6 +9,7 @@ import Navbar from '../components/Navbar';
 
 const MainWrapper = styled.main`
   background-color: #ffc645;
+  font-family: "Microsoft JhengHei";
   height: calc(100vh - 40px);
 `;
 

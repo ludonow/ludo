@@ -2,5 +2,7 @@
   "action interval": "行为间隔",
   "complete rate": "达成率",
   "edit": "更改名称",
-  "participants": "执行人次"
+  "participants": "执行人次",
+  "select": "选取数据分析",
+  "show reportList": "显示回报内容"
 }
