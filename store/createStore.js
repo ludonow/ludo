@@ -11,7 +11,7 @@ import watchFetchLudoListOfSingleTemplate, { reducer as ludoListOfSingleTemplate
 import watchFetchSingleTemplate, { reducer as singleTemplateReducer } from '../routes/Statistic/modules/singleTemplate';
 import watchFetchStatisticInfoOfSingleTemplate, { reducer as statisticInfoListOfSingleTemplateReducer } from '../routes/Statistic/modules/statisticInfo';
 import watchFetchUserInfo, { reducer as fetchUserInfoReducer } from '../routes/Auth/modules/user';
-import watchTemplateList, { reducer as templateListReducer } from '../routes/Group/modules/myTemplateList';
+import watchTemplateList, { reducer as templateListReducer } from '../routes/StatisticInGroup/modules/myTemplateList';
 import { reducer as navbarReducer } from '../routes/UI/modules/navbar';
 
 const rootReducer = combineReducers({

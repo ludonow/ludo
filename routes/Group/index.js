@@ -1,12 +1,9 @@
 import React from 'react';
-import TemplateListInGroup from '../../components/TemplateListInGroup';
-import TemplateTitleContainer from '../Statistic/components/TemplateTitleContainer';
 
-const Statistic = () => (
+const Group = () => (
   <div>
-    <TemplateListInGroup />
-    <TemplateTitleContainer />
+    Group
   </div>
 );
 
-export default Statistic;
+export default Group;

@@ -62,10 +62,10 @@ export const fetchStatisticInfoOfSingleTemplateFail = ({ message }) => ({
 export function* fetchStatisticInfoOfSingleTemplate(action) {
   try {
     const {
-      templateId,
+      ludoId,
       userId,
     } = action.payload;
-    const query = `/apis/ludo/${templateId}/statistic/${userId}`;
+    const query = `/apis/ludo/${ludoId}/statistic/${userId}`;
     const response = yield call(getWithQuery, query);
     const {
       data,

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 88.211 88.211">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #009688;
+        opacity: 0.909;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        filter: url(#Ellipse_66);
+      }
+    </style>
+    <filter id="Ellipse_66" x="0" y="0" width="88.211" height="88.211" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Group_240" data-name="Group 240" transform="translate(-222 -695)">
+    <g class="cls-3" transform="matrix(1, 0, 0, 1, 222, 695)">
+      <circle id="Ellipse_66-2" data-name="Ellipse 66" class="cls-1" cx="35.106" cy="35.106" r="35.106" transform="translate(9 6)"/>
+    </g>
+    <rect id="Rectangle_1970" data-name="Rectangle 1970" class="cls-2" width="39" height="7" rx="3.5" transform="translate(247.072 732.106)"/>
+    <rect id="Rectangle_1971" data-name="Rectangle 1971" class="cls-2" width="39" height="7" rx="3.5" transform="translate(270.072 717.106) rotate(90)"/>
+  </g>
+</svg>

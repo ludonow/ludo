@@ -1,7 +1,7 @@
 // @flow
 import { connect } from 'react-redux';
 import TemplateList from './TemplateList';
-import { getTemplateList } from '../../routes/Group/modules/myTemplateList';
+import { getTemplateList } from '../../routes/StatisticInGroup/modules/myTemplateList';
 import { fetchSingleTemplateRequest } from '../../routes/Statistic/modules/singleTemplate';
 
 const mapStateToProps = state => ({

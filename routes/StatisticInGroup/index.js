@@ -1,12 +1,17 @@
 import React from 'react';
+import styled from 'styled-components';
 import TemplateListInGroup from '../../components/TemplateListInGroup';
-import TemplateTitleContainer from '../Statistic/components/TemplateTitleContainer';
+import Statistic from '../Statistic';
 
-const Statistic = () => (
-  <div>
+const Wrapper = styled.div`
+  display: inline-flex;
+`;
+
+const StatisticInGroup = () => (
+  <Wrapper>
     <TemplateListInGroup />
-    <TemplateTitleContainer />
-  </div>
+    <Statistic />
+  </Wrapper>
 );
 
-export default Statistic;
+export default StatisticInGroup;

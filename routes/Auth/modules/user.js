@@ -5,7 +5,7 @@ import {
 } from 'redux-saga/effects';
 import axios from '../../../axios-config';
 import { loginSuccess } from './auth';
-import { fetchTemplateListRequest } from '../../Group/modules/myTemplateList';
+import { fetchTemplateListRequest } from '../../StatisticInGroup/modules/myTemplateList';
 
 // - Actions
 export const CLEAR_USER_INFO = 'CLEAR_USER_INFO';

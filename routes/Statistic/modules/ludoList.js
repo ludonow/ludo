@@ -88,24 +88,21 @@ export function* fetchLudoListOfSingleTemplate(action) {
     }
 
     const list = ludoList.Items;
-    const userIdList = list.reduce(
+
+    const payloadList = list.reduce(
       (accumulator, ludoInfo) => {
-        const userIdListOfSingleLudo = getUserIdListOfLudo(ludoInfo);
-        return accumulator.concat(userIdListOfSingleLudo);
+        const starterPayload = {
+          ludoId: ludoInfo.ludo_id,
+          userId: ludoInfo.starter_id,
+        };
+        const playerPayload = {
+          ludoId: ludoInfo.ludo_id,
+          userId: ludoInfo.player_id,
+        };
+        return accumulator.concat([starterPayload, playerPayload]);
       },
       [],
     );
-    /**
-     * ref: https://stackoverflow.com/questions/31929074/using-javascript-array-reduce-to-remove-duplicates
-     */
-    const userIdListWithoutDuplicate = userIdList.reduce(
-      (accumulator, userId) => accumulator.indexOf(userId) === -1 ? accumulator.concat(userId) : accumulator,
-      [],
-    );
-    const payloadList = userIdListWithoutDuplicate.map(userId => ({
-      templateId,
-      userId,
-    }));
 
     yield all(payloadList.map(payload => put(fetchStatisticInfoOfSingleTemplateRequest({ payload }))));
     yield put(fetchLudoListSuccess({ ludoList: list }));

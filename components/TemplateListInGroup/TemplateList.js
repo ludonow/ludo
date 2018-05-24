@@ -2,6 +2,14 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import Router from 'next/router';
+import IconList from './IconList';
+
+const GroupTitle = styled.div`
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+`;
 
 const ListItem = styled.li`
   align-items: center;
@@ -25,16 +33,40 @@ const Wrapper = styled.ul`
   border-right: 5px rgba(255, 255, 255, 0.2) solid;
   display: flex;
   flex-direction: column;
+  height: 85vh;
   position: relative;
-  top: 80px;
+  top: 30px;
   position: relative;
   width: 240px;
 `;
 
 type Props = {
   fetchSingleTemplateRequestAction: Func,
-  templateList: array,
+  // templateList: array,
 };
+
+const templateList = [
+  {
+    ludo_id: 'ludo_id',
+    title: 'DIY月餅挑戰入門',
+  },
+  {
+    ludo_id: 'ludo_id2',
+    title: 'DIY月餅挑戰I',
+  },
+  {
+    ludo_id: 'ludo_id3',
+    title: 'DIY月餅挑戰II',
+  },
+  {
+    ludo_id: 'ludo_id4',
+    title: 'DIY月餅挑戰III',
+  },
+  {
+    ludo_id: 'ludo_id5',
+    title: 'DIY月餅挑戰IV',
+  },
+];
 
 class TemplateList extends Component<Props> {
   constructor() {
@@ -50,9 +82,12 @@ class TemplateList extends Component<Props> {
   }
 
   render() {
-    const { templateList } = this.props;
+    // const { templateList } = this.props;
     return (
       <Wrapper>
+        <GroupTitle>
+          DIY月餅挑戰
+        </GroupTitle>
         {
           templateList.map((templateInfo, index) => (
             <ListItem
@@ -64,6 +99,7 @@ class TemplateList extends Component<Props> {
             </ListItem>
           ))
         }
+        <IconList />
       </Wrapper>
     );
   }
