@@ -66,19 +66,6 @@ for (let i = 0; i < data.length; i += 1) {
   }
 }
 
-// Color Set
-function TypeColor(d) {
-  switch (d.num) {
-    case 1:
-      return '#ef3f3f';
-    case 2:
-      return '#ffffff';
-    case 3:
-    default:
-      return '#5da785';
-  }
-}
-
 /* Main Structure */
 class Scatter extends React.Component {
   constructor(props) {
@@ -87,6 +74,17 @@ class Scatter extends React.Component {
   }
 
   componentDidMount() {
+    // Color set
+    const TypeColor = (d) => {
+      switch (d.num) {
+        case 1:
+          return '#ef3f3f';
+        case 2:
+          return '#ffffff';
+        case 3:
+        default:
+          return '#5da785';
+    }
     // Range Domain
     const mar = 20;
     const xAxis = d3.scaleLinear()
