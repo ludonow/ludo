@@ -1,17 +1,17 @@
 import { connect } from 'react-redux';
 import Title from '../../../components/Title';
 import {
-  fetchSingleTemplateRequest,
-  getTemplateInfo,
-} from '../modules/singleTemplate';
+  fetchSingleGroupRequest,
+  getGroupInfo,
+} from '../modules/singleGroup';
 
 const mapStateToProps = state => ({
-  title: getTemplateInfo(state).title,
+  title: getGroupInfo(state).title,
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchInfoRequestAction: (id) => {
-    dispatch(fetchSingleTemplateRequest(id));
+    dispatch(fetchSingleGroupRequest(id));
   },
 });
 

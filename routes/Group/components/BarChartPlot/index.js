@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import Scatter from './Scatter';
+import BarChart from './BarChart';
 
 const Wrapper = styled.div`
 `;
 
-const ScatterPlot = () => (
+const BarChartPlot = () => (
   <Wrapper>
-    <Scatter />
+    <BarChart />
   </Wrapper>
 );
 
-export default ScatterPlot;
+export default BarChartPlot;

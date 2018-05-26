@@ -11,13 +11,15 @@ import watchFetchLudoListOfSingleTemplate, { reducer as ludoListOfSingleTemplate
 import watchFetchSingleTemplate, { reducer as singleTemplateReducer } from '../routes/Statistic/modules/singleTemplate';
 import watchFetchStatisticInfoOfSingleTemplate, { reducer as statisticInfoListOfSingleTemplateReducer } from '../routes/Statistic/modules/statisticInfo';
 import watchFetchUserInfo, { reducer as fetchUserInfoReducer } from '../routes/Auth/modules/user';
-import watchTemplateList, { reducer as templateListReducer } from '../routes/StatisticInGroup/modules/myTemplateList';
+import watchTemplateList, { reducer as templateListReducer } from '../routes/Group/modules/myTemplateList';
+import watchFetchSingleGroup, { reducer as singleGroupReducer } from '../routes/Group/modules/singleGroup';
 import { reducer as navbarReducer } from '../routes/UI/modules/navbar';
 
 const rootReducer = combineReducers({
   auth: authReducer,
   ludoListOfSingleTemplate: ludoListOfSingleTemplateReducer,
   singleTemplate: singleTemplateReducer,
+  singleGroup: singleGroupReducer,
   statisticInfoListOfSingleTemplate: statisticInfoListOfSingleTemplateReducer,
   templateList: templateListReducer,
   ui: combineReducers({
@@ -31,6 +33,7 @@ export const sagaMiddleware = createSagaMiddleware();
 export function* rootSaga() {
   yield all([
     watchAuth(),
+    watchFetchSingleGroup(),
     watchFetchLudoListOfSingleTemplate(),
     watchFetchUserInfo(),
     watchFetchSingleTemplate(),

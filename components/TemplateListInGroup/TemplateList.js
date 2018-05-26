@@ -78,7 +78,7 @@ class TemplateList extends Component<Props> {
     const templateId = event.currentTarget.id;
     const { fetchSingleTemplateRequestAction } = this.props;
     fetchSingleTemplateRequestAction(templateId);
-    Router.push(`/statistic?templateId=${templateId}`);
+    Router.push(`/statisticInGroup?templateId=${templateId}`);
   }
 
   render() {

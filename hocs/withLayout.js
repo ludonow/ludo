@@ -20,7 +20,7 @@ function withLayout(Page) {
     static async getInitialProps() {
       const translations = await getTranslation(
         lang,
-        ['layout', 'statistic'],
+        ['group', 'layout', 'statistic'],
         'http://localhost:8080/static/locales/',
       );
 

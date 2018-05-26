@@ -29,27 +29,27 @@ const Wrapper = styled.div`
 `;
 
 type Props = {
-  fetchSingleTemplateRequestAction: Func,
+  fetchInfoRequestAction: Func,
   t: Func,
-  templateInfo: object,
+  title: string,
 };
 
 class TemplateTitle extends Component<Props> {
   componentDidMount() {
-    const { fetchSingleTemplateRequestAction } = this.props;
+    const { fetchInfoRequestAction } = this.props;
     const viewingTemplateId = window.location.search.split('templateId=')[1];
-    fetchSingleTemplateRequestAction(viewingTemplateId);
+    fetchInfoRequestAction(viewingTemplateId);
   }
 
   render() {
     const {
       t,
-      templateInfo,
+      title,
     } = this.props;
     return (
       <Wrapper>
         <Title>
-          {templateInfo.title}
+          {title}
         </Title>
         <Button>
           {t('edit')}
