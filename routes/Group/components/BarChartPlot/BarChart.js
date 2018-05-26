@@ -7,49 +7,48 @@ import * as d3 from 'd3';
 // data
 const data = [
   {
-    name: '雙方皆完成',
+    name:"DIY月餅挑戰入門",
     num: 1,
-    value: [
-      { x: 80, y: 70, isL: 0 },
-      { x: 88, y: 84, isL: 0 },
-      { x: 95, y: 68, isL: 0 },
-      { x: 78, y: 87, isL: 0 },
-      { x: 100, y: 100, isL: 0 },
+    value:[
+      67, 75, 85, 108.5, 98, 129, 120.5, 119, 141.5
     ],
   },
   {
-    name: '單方完成',
+    name:"DIY月餅挑戰I",
     num: 2,
-    value: [
-      { x: 80, y: 10, isL: 0 },
-      { x: 78, y: 15, isL: 1 },
-      { x: 83, y: 8, isL: 0 },
-      { x: 77, y: 12, isL: 1 },
-      { x: 85, y: 4, isL: 0 },
-      { x: 8, y: 88, isL: 0 },
-      { x: 12, y: 76, isL: 0 },
-      { x: 9, y: 81, isL: 0 },
-      { x: 14, y: 83, isL: 1 },
-      { x: 7, y: 77, isL: 1 },
+    value:[
+      50,60,70,70,80,80,90
+    ],
+  },
+
+  {
+    name:"DIY月餅挑戰II",
+    num: 3,
+    value:[
+      50,60,70,70,80,80,90,90,95,100,100
     ],
   },
   {
-    name: '雙方皆未完成',
-    num: 3,
-    value: [
-      { x: 25, y: 10, isL: 0 },
-      { x: 16, y: 17, isL: 0 },
-      { x: 35, y: 22, isL: 0 },
-      { x: 26, y: 31, isL: 0 },
-      { x: 0, y: 0, isL: 0 },
+    name:"DIY月餅挑戰III",
+    num:4,
+    value:[
+      50,60,70,70,80,80,90,90,40,30,20,20,20
     ],
   },
+  {
+    name:"DIY月餅挑戰IV",
+    num:5,
+    value:[
+      15,15,15,15,15,15,15,15,15,15,15,15,
+      15,15,15,15,15,15,15,15,15,15,15
+    ],
+  }
 ];
 
 const dataValue = [];
 const pathValue = [];
-for (let i = 0; i < data.length; i += 1) {
-  for (let j = 0; j < data[i].value.length; j += 1) {
+for (let i=0;i<data.length;i+=1) {
+  for (let j=0;j<data[i].value.length;j+=1) {
     dataValue.push({
       num: data[i].num,
       x: data[i].value[j].x,
@@ -66,105 +65,110 @@ for (let i = 0; i < data.length; i += 1) {
   }
 }
 
-// Color Set
-function TypeColor(d) {
-  switch (d.num) {
-    case 1:
-      return '#ef3f3f';
-    case 2:
-      return '#ffffff';
-    case 3:
-    default:
-      return '#5da785';
-  }
-}
-
 /* Main Structure */
-class Scatter extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  componentDidMount() {
-    // Range Domain
-    const mar = 20;
-    const xAxis = d3.scaleLinear()
-      .range([230, 0])
-      .domain([100, 0]);
-    const yAxis = d3.scaleLinear()
-      .range([230, 0])
-      .domain([100, 0]);
-
-    // main scructure
-    const scatChart = d3.select('#scatterchart')
-      .style('display', 'flex')
-      .style('justify-content', 'flex-start')
-      .style('align-items', 'flex-end')
-      .style('min-width', '370px');
-    // point picture
-    scatChart.append('svg')
-      .attr('class', 'svg')
-      .attr('width', 240.7)
-      .attr('height', 240.7)
-      .attr('padding-top', mar)
-      .attr('padding-left', mar)
-      .style('border-right', '1.5px solid rgba(255, 255, 255, 0.43)')
-      .style('border-bottom', '1.5px solid rgba(255, 255, 255, 0.43)');
-    // point
-    const pic = d3.select('.svg');
-    pic.selectAll()
+class BarChart extends React.Component {
+  componentDidMount(){
+    // SVG's width & height, and margin size
+    var svgwidth=575, svgheight=165, marlen = 3;
+    // d3's writing style function
+    var colorReturn = function(d){
+      switch(d.num){
+        case 1:
+          return '#F76565';
+          break;
+        case 2:
+          return '#90B761';
+          break;
+        case 3:
+          return '#55A8A5';
+          break;
+        case 4:
+          return '#7D6DFD';
+          break;
+        case 5:
+        default:
+          return '#E392C4';
+          break;
+      }
+    };
+    //BAR
+      // root node
+    const Chart = d3.select('#bar')
+      .style('width',svgwidth.toString()+'px');
+      // verticle bar
+    Chart.selectAll('div')
       .data(dataValue).enter()
-      .append('circle')
-      .attr('r', 3)
-      .attr('cx', function(d){return 234-xAxis(d.x);})
-      .attr('cy', function(d){return 234-yAxis(d.y);})
-      .style('fill', TypeColor)
-      .on('click', (d) => {
-        alert(d.y);
-      });
-    // path
-    const line = d3.line()
-      .x(function(d){return 234-xAxis(d.x);})
-      .y(function(d){return 234-yAxis(d.y);});
-    pic.append('path')
-      .attr('d', line(pathValue))
-      .attr('stroke', '#707070')
-      .attr('fill', 'none')
-      .attr('stroke-width', '0, 5');
-    // label
-    scatChart.append('div').attr('class', 'label');
-    d3.select('.label').append('ul')
-      .attr('class', 'unorder')
-      .style('padding-left', '25px')
-      .style('font-size', '18px')
-      .style('list-style-type', 'disc');
+      .append('div')
+      .style("display","inline-block")
+      .style("position", "relative")
+      .style("bottom","-2.7px")
+      .style("left", function(d){return d.x+"px";})
+      .style("background-color",colorReturn)
+      .style("width","6.5px")
+      .style("height",function(d){return d.y+"px";})
+      .style("border-radius","15px 15px 0px 0px");
+      // parallel bar
+    Chart.append('div')
+      .style("position",'relative')
+      .style('top','0px')
+      .style('left','0px')
+      .style("background-color","#fff")
+      .style("height","3px")
+      .style("width", "573px")
+      .style("opacity",0.43)
+      .style("border-radius","25px");
 
-    const label = d3.select('.unorder');
-    label.selectAll('li')
+    //LABEL
+      // root node
+    const labelbar = d3.select('#barlabel')
+      .style('width',(svgwidth-marlen).toString()+'px')
+      .style('height','20px')
+      .style('position','relative')
+      .style('left','0px')
+      .style('bottom','0px')
+      .style('display','flex')
+      .style('justify-content','flex-start')
+      .style('padding-top','10.3px');
+      // five small container
+    labelbar.selectAll('div')
       .data(data).enter()
-      .append('li')
-      .style('color', TypeColor)
-      .append('span')
-      .text(function(d){return d.name})
-      .style('font-size', '13px')
-      .style('font-family', 'HelveticaNeue')
-      .style('font-weight', 'normal')
+      .append('div')
+      .attr('class','labelitem')
+      .style('display','flex')
+      .style('justify-content','space-around')
+      .style('align-items','center')
+      .style('padding-left','4.5px')
+      .style('padding-right','11.5px')
+      .append('div') // color bar
+      .style('width','30px')
+      .style('height','5.5px')
+      .style('border-radius','25px')
+      .style('background-color', colorReturn);
+
+    d3.selectAll('.labelitem')
+      .append('div') // text
+      .style('font-size','7.5px')
+      .style('font-family','HelveticaNeue')
+      .style('font-weight', 'bold')
       .style('font-style', 'normal')
       .style('font-stretch', 'normal')
-      .style('line-height', 1.2)
-      .style('letter-spacing', 'normal');
-  }
+      .style('line-height', '1.2')
+      .style('letter-spacing', 'normal')
+      .style('white-space','nowrap')
+      .style('padding-left','6.5px')
+      .text(function(d){
+        return d.name;
+      });
 
-  handleClick(d) {
-    alert(d.y);
   }
-
-  render() {
-    return (
-      <div id="scatterchart" />
-    );
-  }
+    render(){
+        return(
+            <div>
+              <div id="bar"></div>
+              <div id="barlabel"></div>
+            </div>
+        );
+    }
 }
 
-export default Scatter;
+export default BarChart;
