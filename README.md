@@ -15,7 +15,7 @@ ref: [如何合理布置React/Redux的目录结构](https://juejin.im/post/58cbf
 # Getting Started
 
 ### Prerequisites
-This project runs on [Node.js](https://nodejs.org/en)
+This project runs on [Node.js](https://nodejs.org/en)  
 After installation, run
 ```
 node -v
