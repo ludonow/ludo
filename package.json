@@ -70,7 +70,7 @@
     "build": "next build",
     "dev": "next -p 8080",
     "express": "node server.js",
-    "start": "next start",
+    "start": "next start -p 8080",
     "test": "jest",
     "test-dev": "jest --watch"
   }
