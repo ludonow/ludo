@@ -69,8 +69,8 @@
   "scripts": {
     "build": "next build",
     "dev": "next -p 8080",
-    "express": "node server.js",
-    "start": "next start -p 8080",
+    "heroku-postbuild": "next build",
+    "start": "node server.js",
     "test": "jest",
     "test-dev": "jest --watch"
   }

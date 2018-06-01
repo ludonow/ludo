@@ -10,6 +10,8 @@ const i18nextMiddleware = require('i18next-express-middleware');
 const Backend = require('i18next-node-fs-backend');
 const { i18nInstance } = require('./tools/i18n');
 
+const port = process.env.PORT || 8080;
+
 // init i18next with serverside settings
 // using i18next-express-middleware
 i18nInstance
@@ -40,9 +42,9 @@ i18nInstance
         // use next.js
         server.get('*', (req, res) => handle(req, res));
 
-        server.listen(8080, (err) => {
+        server.listen(port, (err) => {
           if (err) throw err;
-          console.log('> Ready on http://localhost:8080');
+          console.log(`> Ready on http://localhost:${port}`);
         });
       });
   });

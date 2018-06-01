@@ -14,6 +14,7 @@ const MainWrapper = styled.main`
 `;
 
 const lang = 'zh-TW';
+const port = process.env.PORT || 8080;
 
 function withLayout(Page) {
   class WrappedComponent extends React.Component {
@@ -21,7 +22,7 @@ function withLayout(Page) {
       const translations = await getTranslation(
         lang,
         ['group', 'layout', 'statistic'],
-        'http://localhost:8080/static/locales/',
+        `http://localhost:${port}/static/locales/`,
       );
 
       return { translations };
